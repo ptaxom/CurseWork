@@ -6,7 +6,7 @@
 #endif
 
 
-#include "Frame/MainFrame.h"
+#include "Frame/MainFrame/MainFrame.h"
 
 class MyApp : public wxApp
 {

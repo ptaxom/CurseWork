@@ -1,4 +1,5 @@
 #include "MainFrame.h"
+#include "../VideoPane/VideoCanvas.h"
 
 namespace Frame {
 
@@ -24,6 +25,8 @@ namespace Frame {
         SetMenuBar(menuBar);
         CreateStatusBar();
         SetStatusText("Welcome to WebcamHandler!");
+
+        VideoCanvas *canvas = new VideoCanvas(this);
 
 
         Bind(wxEVT_MENU, &Frame::MainFrame::OnHello, this, ID_HELLO);
