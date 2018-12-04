@@ -2,6 +2,7 @@
 #include <string>
 #include <opencv2/highgui.hpp>
 #include <Windows.h>
+#include "../StatusBar/StatusBar.h"
 
 class ApplicationWindow
 {
@@ -12,6 +13,10 @@ public:
 
 
 	void drawMat(const cv::Mat &frame);
+
+	void updateStatusBar(std::string text);
+
+	std::string getTitle() const;
 
 private:
 
@@ -26,5 +31,8 @@ private:
 	//WinAPI stuff
 	HWND window_;
 	HINSTANCE hInstance_;
+
+	//WinAPI Wrap stuff
+	StatusBar statusBar_;
 };
 

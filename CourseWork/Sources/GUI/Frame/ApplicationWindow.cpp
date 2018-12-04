@@ -1,10 +1,12 @@
 #include "ApplicationWindow.h"
 
+
 ApplicationWindow::ApplicationWindow(std::string title) : title_(title)
 {
+	cv::namedWindow(title_);
 	window_ = getWindow();
 	hInstance_ = (HINSTANCE)GetModuleHandle(NULL);
-	cv::namedWindow(title_);
+	statusBar_ = StatusBar(window_, hInstance_);
 }
 
 ApplicationWindow::~ApplicationWindow()
@@ -15,6 +17,16 @@ ApplicationWindow::~ApplicationWindow()
 void ApplicationWindow::drawMat(const cv::Mat & frame)
 {
 	cv::imshow(title_, frame);
+}
+
+void ApplicationWindow::updateStatusBar(std::string text)
+{
+	statusBar_.updateField(text);
+}
+
+std::string ApplicationWindow::getTitle() const
+{
+	return title_;
 }
 
 HWND ApplicationWindow::getWindow()
