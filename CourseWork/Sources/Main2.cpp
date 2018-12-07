@@ -27,6 +27,34 @@ HWND getWindow(std::string title_)
 #include <time.h>
 #include <string>
 
+
+
+double times = 0.0, sum = 0.0;
+
+#include <opencv2/imgproc.hpp>
+
+
+cv::Mat createElemt()
+{
+	int val = 1;
+	int A = val; int B = A * 2 + 1;
+
+	cv::Mat element = cv::getStructuringElement(cv::MORPH_CROSS,
+		cv::Size(2 * A + 1, 2 * A + 1),
+		cv::Point(A, A));
+
+	for (int i = 0; i < A; i++)
+	{
+		*(element.begin<uchar>() + B * 0 + i) = 1;
+		*(element.begin<uchar>() + B * i + B - 1) = 1;
+		*(element.begin<uchar>() + B * (B - 1) + A + i) = 1;
+		int k = B * (B - 1) - i *B;  
+		*(element.begin<uchar>() + k) = 1;
+	}
+	return element;
+}
+
+
 int mai2n()
 {
 
@@ -38,8 +66,13 @@ int mai2n()
 
 	cv::namedWindow(title);
 
+
+
+
 	HWND window = getWindow(title);
 	HINSTANCE hInst = (HINSTANCE)GetModuleHandle(NULL);
+
+
 
 	HWND statusBar_ = CreateWindowEx(
 		0L,
@@ -47,7 +80,7 @@ int mai2n()
 		"",
 		WS_CHILD | WS_BORDER |
 		WS_VISIBLE | SBARS_SIZEGRIP,
-		0, 0, 0, 0,
+		0, -10, 0, 0,
 		window,
 		(HMENU)801,
 		hInst,
@@ -60,9 +93,6 @@ int mai2n()
 	SendMessage(statusBar_, SB_SETTEXT, 0, (LPARAM)"");
 	SendMessage(statusBar_, SB_SETTEXT, 1 | SBT_NOBORDERS,
 		(LPARAM)"");
-
-
-	double times = 0.0, sum = 0.0;
 
 	while (1)
 	{

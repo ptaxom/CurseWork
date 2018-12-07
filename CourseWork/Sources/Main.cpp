@@ -2,7 +2,7 @@
 #include <opencv2/highgui.hpp>
 #include <time.h>
 
-int main()
+int main2()
 {
 	cv::VideoCapture cap;
 	cap.open(0);
