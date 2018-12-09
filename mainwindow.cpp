@@ -10,7 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    cameraCapture.open(0);
+    this->cSourse = CameraSource(0);
+    this->writer = MediaWriter();
 
 
     labelThread = new QTimer(this);
@@ -22,7 +23,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    cameraCapture.release();
     delete ui;
 }
 
@@ -32,8 +32,13 @@ void MainWindow::UpdateLabelImage()
     time_t start, end;
     time(&start);
 
-    cv::Mat frame;
-    cameraCapture.read(frame);
+    cv::Mat frame = cSourse.grabCVIMage();
+
+    if (this->writer.isRecordingVideo())
+    {
+        this->writer.addFrame(frame);
+        cv::circle(frame,cv::Point(30,30),10,cv::Scalar(255,0,0),-1);
+    }
 
     QImage img = convertFromMatToQImage(frame);
 
@@ -47,10 +52,11 @@ void MainWindow::UpdateLabelImage()
     time(&end);
 
     frameCaptureTimes += end - start;
-    framesCount++;
+    ++framesCount;
 
     double fps = 1.0 / ((double)frameCaptureTimes / (double)framesCount);
 
+    this->fps = (int)fps;
 
     std::string fpsBar = "FPS: " + std::to_string(fps);
     //fpsBar = fpsBar.substr(0,std::to_string((int)fps).length()+7);
@@ -74,14 +80,40 @@ QImage MainWindow::convertFromMatToQImage(cv::Mat &mat) {
 }
 
 
+
+int MainWindow::checkFPS()
+{
+    if (this->fps > 45)
+        this->fps = 45;
+    if (this->fps < 15)
+        this->fps = 15;
+    return this->fps;
+}
+
+
 void MainWindow::on_actVideo_triggered()
 {
-    if (ui->actVideo->text() == "Начать запись видео")
-        ui->actVideo->setText("Остановить запись видео");
-    else ui->actVideo->setText("Начать запись видео");
+    try {
+        if (!this->writer.isRecordingVideo() && ui->actVideo->text() == "Начать запись видео")
+        {
+            this->writer.startCapture(checkFPS(),this->cSourse.getCaptureSize());
+            ui->actVideo->setText("Остановить запись видео");
+            return;
+        }
+        if (this->writer.isRecordingVideo() && ui->actVideo->text() == "Остановить запись видео")
+        {
+            this->writer.endCapture();
+            ui->actVideo->setText("Начать запись видео");
+            return;
+        }
+        throw std::runtime_error("Unknown error...");
+    } catch (const std::runtime_error &ex) {
+        this->writer.ReleaseVideoCapture();
+        QMessageBox::critical(this,"Ошибка видео", ex.what());
+    }
 }
 
 void MainWindow::on_actPhoto_triggered()
 {
-
+    this->writer.makePhoto(this->cSourse.getLastFrame());
 }

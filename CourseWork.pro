@@ -26,10 +26,14 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    camerasource.cpp \
+    mediawriter.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    camerasource.h \
+    mediawriter.h
 
 FORMS += \
         mainwindow.ui

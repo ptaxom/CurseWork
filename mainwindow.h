@@ -7,6 +7,9 @@
 #include <opencv2/imgproc.hpp>
 #include <time.h>
 
+#include "camerasource.h"
+#include "mediawriter.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -36,11 +39,15 @@ private:
     QTimer *labelThread;
 
     QImage convertFromMatToQImage(cv::Mat &image);
+    int checkFPS();
 
-    cv::VideoCapture cameraCapture;
+    CameraSource cSourse;
+    MediaWriter writer;
 
     time_t frameCaptureTimes = 0;
     int framesCount = 0;
+    int fps = 30;
+
 };
 
 #endif // MAINWINDOW_H
