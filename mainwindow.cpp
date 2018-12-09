@@ -53,8 +53,10 @@ void MainWindow::UpdateLabelImage()
 
 
     std::string fpsBar = "FPS: " + std::to_string(fps);
+    //fpsBar = fpsBar.substr(0,std::to_string((int)fps).length()+7);
 
-    ui->statusBar->showMessage(QString::fromStdString(fpsBar));
+    if (framesCount % 2 == 1)
+        ui->statusBar->showMessage(QString::fromStdString(fpsBar));
 
 }
 
@@ -69,4 +71,17 @@ QImage MainWindow::convertFromMatToQImage(cv::Mat &mat) {
         qDebug() << "in convertOpenCVMatToQtQImage, image was not 1 channel or 3 channel, should never get here";
     }
     return QImage();        // return a blank QImage if the above did not work
+}
+
+
+void MainWindow::on_actVideo_triggered()
+{
+    if (ui->actVideo->text() == "Начать запись видео")
+        ui->actVideo->setText("Остановить запись видео");
+    else ui->actVideo->setText("Начать запись видео");
+}
+
+void MainWindow::on_actPhoto_triggered()
+{
+
 }

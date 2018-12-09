@@ -25,6 +25,11 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_actPhoto_triggered();
+
+    void on_actVideo_triggered();
+
 private:
     Ui::MainWindow *ui;
 
