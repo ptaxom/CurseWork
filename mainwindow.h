@@ -5,6 +5,7 @@
 #include<QMessageBox>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
+#include <time.h>
 
 namespace Ui {
 class MainWindow;
@@ -32,6 +33,9 @@ private:
     QImage convertFromMatToQImage(cv::Mat &image);
 
     cv::VideoCapture cameraCapture;
+
+    time_t frameCaptureTimes = 0;
+    int framesCount = 0;
 };
 
 #endif // MAINWINDOW_H

@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     labelThread = new QTimer(this);
     connect(labelThread, SIGNAL(timeout()), this, SLOT(UpdateLabelImage()));
-    labelThread->start(1);
+    labelThread->start(20);
 
 
 }
@@ -29,6 +29,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::UpdateLabelImage()
 {
+    time_t start, end;
+    time(&start);
+
     cv::Mat frame;
     cameraCapture.read(frame);
 
@@ -40,6 +43,19 @@ void MainWindow::UpdateLabelImage()
     int h = ui->label->height();
 
     ui->label->setPixmap(pix.scaled(w,h));
+
+    time(&end);
+
+    frameCaptureTimes += end - start;
+    framesCount++;
+
+    double fps = 1.0 / ((double)frameCaptureTimes / (double)framesCount);
+
+
+    std::string fpsBar = "FPS: " + std::to_string(fps);
+
+    ui->statusBar->showMessage(QString::fromStdString(fpsBar));
+
 }
 
 
