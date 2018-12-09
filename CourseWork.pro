@@ -34,6 +34,15 @@ HEADERS += \
 FORMS += \
         mainwindow.ui
 
+
+
+INCLUDEPATH += C:/opencv2/opencv/build/include
+DEPENDPATH += C:/opencv2/opencv/build/include
+
+LIBS += -LC:/opencv2/myBuild/lib/debug/ -lopencv_imgcodecs344d -lopencv_imgproc344d -lopencv_ml344d -lopencv_objdetect344d -lopencv_photo344d -lopencv_shape344d -lopencv_stitching344d -lopencv_superres344d -lopencv_ts344d -lopencv_video344d -lopencv_videoio344d -lopencv_videostab344d -lopencv_calib3d344d -lopencv_core344d -lopencv_features2d344d -lopencv_flann344d -lopencv_highgui344d
+
+
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
