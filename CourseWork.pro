@@ -28,15 +28,18 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     camerasource.cpp \
-    mediawriter.cpp
+    mediawriter.cpp \
+    writersettings.cpp
 
 HEADERS += \
         mainwindow.h \
     camerasource.h \
-    mediawriter.h
+    mediawriter.h \
+    writersettings.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    writersettings.ui
 
 
 

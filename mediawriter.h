@@ -7,7 +7,7 @@
 #include <opencv2/opencv.hpp>
 
 namespace Writer {
-    const std::string defaultPath = "C:/CurseWorkSavedImages";
+    const std::string defaultPath = "D://Qtproj";
 }
 
 
@@ -27,12 +27,23 @@ public:
 
     bool isRecordingVideo() const;
 
+    int getPreferredFPS() const;
+    bool getUsePreferredFPS() const;
+    std::string getPath() const;
+
+    void setPreferredFPS(int fps);
+    void setUsePreferredFPS(bool use);
+    void setPath(std::string path);
+
 private:
 
     std::string path;
     cv::VideoWriter *writer = nullptr;
 
     std::string getMediaName() const;
+
+    bool usePreferredFPS = false;
+    int preferredFPS = 30;
 
 };
 

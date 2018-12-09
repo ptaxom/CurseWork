@@ -57,7 +57,7 @@
     <property name="title">
      <string>Настройки</string>
     </property>
-    <addaction name="action_5"/>
+    <addaction name="actWriterSettings"/>
     <addaction name="separator"/>
     <addaction name="action_7"/>
    </widget>
@@ -96,7 +96,7 @@
     <string>Ctrl+R</string>
    </property>
   </action>
-  <action name="action_5">
+  <action name="actWriterSettings">
    <property name="text">
     <string>Сохранение файлов</string>
    </property>

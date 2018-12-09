@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "writersettings.h"
 
 #include <QtCore>
 
@@ -11,12 +11,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     this->cSourse = CameraSource(0);
-    this->writer = MediaWriter();
+    this->writer = MediaWriter("");
 
 
     labelThread = new QTimer(this);
     connect(labelThread, SIGNAL(timeout()), this, SLOT(UpdateLabelImage()));
-    labelThread->start(20);
+    labelThread->start(1);
 
 
 }
@@ -116,4 +116,12 @@ void MainWindow::on_actVideo_triggered()
 void MainWindow::on_actPhoto_triggered()
 {
     this->writer.makePhoto(this->cSourse.getLastFrame());
+}
+
+void MainWindow::on_actWriterSettings_triggered()
+{
+    writerSettings window;
+    window.initSettings(&this->writer);
+    window.setModal(true);
+    window.exec();
 }
