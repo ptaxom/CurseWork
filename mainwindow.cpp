@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     this->cSourse = CameraSource(0);
-    this->writer = MediaWriter("");
+    this->writer = MediaWriter();
 
 
     labelThread = new QTimer(this);
@@ -40,6 +40,29 @@ void MainWindow::UpdateLabelImage()
     {
         this->writer.addFrame(frame);
         cv::circle(frame,cv::Point(30,30),10,cv::Scalar(0,0,255),-1);
+    }
+
+    auto faces = detector.getFaces(frame);
+    for(auto &face : faces)
+    {
+
+
+        cv::rectangle(frame,face,cv::Scalar(0,255,0));
+        cv::Mat faceImg = frame(face);
+
+        int size = 35;
+
+        if (1)
+        {
+            cv::GaussianBlur(faceImg,faceImg,cv::Size(size * 2 + 1,size * 2 + 1),0,0);
+        }
+        else {
+            cv::Mat element = cv::getStructuringElement( cv::MORPH_RECT,
+                                                   cv::Size( 2*size + 1, 2*size+1 ),
+                                                   cv::Point( size, size ) );
+            cv::erode(faceImg,faceImg,element);
+        }
+        //faceImg.copyTo(frame,)
     }
 
     QImage img = convertFromMatToQImage(frame);

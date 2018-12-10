@@ -29,13 +29,15 @@ SOURCES += \
         mainwindow.cpp \
     camerasource.cpp \
     mediawriter.cpp \
-    writersettings.cpp
+    writersettings.cpp \
+    facedetector.cpp
 
 HEADERS += \
         mainwindow.h \
     camerasource.h \
     mediawriter.h \
-    writersettings.h
+    writersettings.h \
+    facedetector.h
 
 FORMS += \
         mainwindow.ui \
