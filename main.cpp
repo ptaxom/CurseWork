@@ -1,6 +1,11 @@
 #include "mainwindow.h"
 #include <QApplication>
 
+//TODO
+//    Fix fast switching video record
+//    Add filters
+
+
 int main(int argc, char *argv[])
 {
 

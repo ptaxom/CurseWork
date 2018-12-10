@@ -36,6 +36,7 @@ private slots:
     void on_actWriterSettings_triggered();
 
 private:
+
     Ui::MainWindow *ui;
 
     QTimer *labelThread;

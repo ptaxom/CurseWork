@@ -16,13 +16,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     labelThread = new QTimer(this);
     connect(labelThread, SIGNAL(timeout()), this, SLOT(UpdateLabelImage()));
-    labelThread->start(1);
+    labelThread->start(15);
 
 
 }
 
 MainWindow::~MainWindow()
 {
+    if (this->writer.isRecordingVideo())
+        this->writer.endCapture();
     delete ui;
 }
 
@@ -37,7 +39,7 @@ void MainWindow::UpdateLabelImage()
     if (this->writer.isRecordingVideo())
     {
         this->writer.addFrame(frame);
-        cv::circle(frame,cv::Point(30,30),10,cv::Scalar(255,0,0),-1);
+        cv::circle(frame,cv::Point(30,30),10,cv::Scalar(0,0,255),-1);
     }
 
     QImage img = convertFromMatToQImage(frame);
@@ -125,3 +127,4 @@ void MainWindow::on_actWriterSettings_triggered()
     window.setModal(true);
     window.exec();
 }
+
