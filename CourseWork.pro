@@ -30,14 +30,68 @@ SOURCES += \
     camerasource.cpp \
     mediawriter.cpp \
     writersettings.cpp \
-    facedetector.cpp
+    facedetector.cpp \
+    camerasource.cpp \
+    facedetector.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    mediawriter.cpp \
+    writersettings.cpp \
+    camerasource.cpp \
+    facedetector.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    mediawriter.cpp \
+    writersettings.cpp \
+    camerasource.cpp \
+    facedetector.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    mediawriter.cpp \
+    writersettings.cpp \
+    camerasource.cpp \
+    facedetector.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    mediawriter.cpp \
+    writersettings.cpp \
+    Filters/abstractkernelfilter.cpp \
+    imagecontroller.cpp \
+    Filters/abstractfilter.cpp \
+    Filters/KernelFilters/gaussianblur.cpp \
+    Filters/KernelFilters/medianblur.cpp
 
 HEADERS += \
         mainwindow.h \
     camerasource.h \
     mediawriter.h \
     writersettings.h \
-    facedetector.h
+    facedetector.h \
+    camerasource.h \
+    facedetector.h \
+    mainwindow.h \
+    mediawriter.h \
+    writersettings.h \
+    camerasource.h \
+    facedetector.h \
+    mainwindow.h \
+    mediawriter.h \
+    writersettings.h \
+    camerasource.h \
+    facedetector.h \
+    mainwindow.h \
+    mediawriter.h \
+    writersettings.h \
+    camerasource.h \
+    facedetector.h \
+    mainwindow.h \
+    mediawriter.h \
+    writersettings.h \
+    Filters/abstractkernelfilter.h \
+    imagecontroller.h \
+    Filters/abstractfilter.h \
+    Filters/KernelFilters/gaussianblur.h \
+    Filters/KernelFilters/medianblur.h
 
 FORMS += \
         mainwindow.ui \
@@ -56,3 +110,6 @@ LIBS += -LC:/opencv2/myBuild/lib/debug/ -lopencv_imgcodecs344d -lopencv_imgproc3
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    Filters/Лист Microsoft Excel.xlsx

@@ -35,9 +35,9 @@ void MediaWriter::addFrame(const cv::Mat &frame)
         throw std::runtime_error("You must start recording!");
     double t2 = (double)cv::getTickCount();
     double timeFromLastFrame = (t2 - this->lastCapture) / cv::getTickFrequency();
-    std::cout << timeFromLastFrame << " " << this->spf << "\n";
     if (timeFromLastFrame >= this->spf)
     {
+        std::cout << timeFromLastFrame << " " << this->spf << "\n";
         this->lastCapture = t2;
         cv::Mat frameToWrite;
         cv::cvtColor(frame, frameToWrite, CV_BGR2RGB);

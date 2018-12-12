@@ -43,30 +43,7 @@ void MainWindow::UpdateLabelImage()
     }
 
 
-    if (0){
-    auto faces = detector.getFaces(frame);
-    for(auto &face : faces)
-    {
-
-
-        cv::rectangle(frame,face,cv::Scalar(rand() % 255 ,rand() % 255, rand() % 255));
-        cv::Mat faceImg = frame(face);
-
-        int size = 35;
-
-        if (0)
-        {
-            cv::GaussianBlur(faceImg,faceImg,cv::Size(size * 2 + 1,size * 2 + 1),0,0);
-        }
-        else {
-            cv::Mat element = cv::getStructuringElement( cv::MORPH_RECT,
-                                                   cv::Size( 2*size + 1, 2*size+1 ),
-                                                   cv::Point( size, size ) );
-            cv::erode(faceImg,faceImg,element);
-        }
-        //faceImg.copyTo(frame,)
-    }
-    }
+    this->controller.ApplyFilters(frame);
 
     QImage img = convertFromMatToQImage(frame);
 

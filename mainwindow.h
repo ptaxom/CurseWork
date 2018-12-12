@@ -8,7 +8,7 @@
 #include <time.h>
 
 #include "camerasource.h"
-#include "facedetector.h"
+#include "imagecontroller.h"
 #include "mediawriter.h"
 
 namespace Ui {
@@ -47,8 +47,7 @@ private:
 
     CameraSource cSourse;
     MediaWriter writer;
-
-    Detector::FaceDetector detector;
+    ImageController controller;
 
     double frameCaptureTimes = 0;
     int framesCount = 0;
