@@ -50,7 +50,7 @@ private:
 
     Detector::FaceDetector detector;
 
-    time_t frameCaptureTimes = 0;
+    double frameCaptureTimes = 0;
     int framesCount = 0;
     int fps = 30;
 

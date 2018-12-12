@@ -16,6 +16,7 @@ class MediaWriter
 
 public:
     MediaWriter(std::string path = Writer::defaultPath);
+    ~MediaWriter();
 
     void startCapture(int fps,const cv::Size &size);
     void addFrame(const cv::Mat &frame);
@@ -44,6 +45,9 @@ private:
 
     bool usePreferredFPS = false;
     int preferredFPS = 30;
+
+    double lastCapture;
+    double spf; // seconds per frame
 
 };
 

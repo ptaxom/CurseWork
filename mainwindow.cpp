@@ -31,8 +31,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::UpdateLabelImage()
 {
-    time_t start, end;
-    time(&start);
+    double start, end;
+    start = (double)cv::getTickCount();
 
     cv::Mat frame = cSourse.grabCVIMage();
 
@@ -42,17 +42,19 @@ void MainWindow::UpdateLabelImage()
         cv::circle(frame,cv::Point(30,30),10,cv::Scalar(0,0,255),-1);
     }
 
+
+    if (0){
     auto faces = detector.getFaces(frame);
     for(auto &face : faces)
     {
 
 
-        cv::rectangle(frame,face,cv::Scalar(0,255,0));
+        cv::rectangle(frame,face,cv::Scalar(rand() % 255 ,rand() % 255, rand() % 255));
         cv::Mat faceImg = frame(face);
 
         int size = 35;
 
-        if (1)
+        if (0)
         {
             cv::GaussianBlur(faceImg,faceImg,cv::Size(size * 2 + 1,size * 2 + 1),0,0);
         }
@@ -64,6 +66,7 @@ void MainWindow::UpdateLabelImage()
         }
         //faceImg.copyTo(frame,)
     }
+    }
 
     QImage img = convertFromMatToQImage(frame);
 
@@ -74,12 +77,12 @@ void MainWindow::UpdateLabelImage()
 
     ui->label->setPixmap(pix.scaled(w,h));
 
-    time(&end);
+    end = (double)cv::getTickCount();
 
-    frameCaptureTimes += end - start;
+    frameCaptureTimes += (end - start) / cv::getTickFrequency();
     ++framesCount;
 
-    double fps = 1.0 / ((double)frameCaptureTimes / (double)framesCount);
+    double fps = (double)(framesCount) / frameCaptureTimes;
 
     this->fps = (int)fps;
 
