@@ -1,9 +1,10 @@
 #include "medianblur.h"
 
 
-MedianBlur::MedianBlur(int kernelSize) : AbstractKernelFilter ("Медианное размытие", kernelSize)
-{
 
+MedianBlur::MedianBlur(QString filterName, int kernelSize) : AbstractKernelFilter (filterName, "MedianBlur")
+{
+    this->kernel_size = kernelSize;
 }
 
 void MedianBlur::Process(cv::Mat &image)

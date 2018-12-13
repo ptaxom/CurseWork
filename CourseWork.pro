@@ -59,7 +59,9 @@ SOURCES += \
     imagecontroller.cpp \
     Filters/abstractfilter.cpp \
     Filters/KernelFilters/gaussianblur.cpp \
-    Filters/KernelFilters/medianblur.cpp
+    Filters/KernelFilters/medianblur.cpp \
+    Filters/KernelFilters/kernelfiltereditor.cpp \
+    Filters/imagecontrollereditor.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -91,11 +93,15 @@ HEADERS += \
     imagecontroller.h \
     Filters/abstractfilter.h \
     Filters/KernelFilters/gaussianblur.h \
-    Filters/KernelFilters/medianblur.h
+    Filters/KernelFilters/medianblur.h \
+    Filters/KernelFilters/kernelfiltereditor.h \
+    Filters/imagecontrollereditor.h
 
 FORMS += \
         mainwindow.ui \
-    writersettings.ui
+    writersettings.ui \
+    Filters/KernelFilters/kernelfiltereditor.ui \
+    Filters/imagecontrollereditor.ui
 
 
 

@@ -9,16 +9,16 @@
 #include <iostream>
 #include <opencv2/core.hpp>
 
+#include "Filters/imagecontrollereditor.h"
 
 int main(int argc, char *argv[])
 {
-    double t = (double)cv::getTickCount(), t2;
-    Sleep(400);
-    t2 = (double)cv::getTickCount();
-    std::cout << (t2 - t)/(cv::getTickFrequency());
+
 
     QApplication a(argc, argv);
-    MainWindow w;
+//    MainWindow w;
+//    w.show();
+    ImageControllerEditor w;
     w.show();
     return a.exec();
 }

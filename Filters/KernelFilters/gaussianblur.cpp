@@ -1,9 +1,11 @@
 #include "gaussianblur.h"
 
 
-GaussianBlur::GaussianBlur(int kernelSize) : AbstractKernelFilter ("Размытие Гаусса", kernelSize)
-{
 
+
+GaussianBlur::GaussianBlur(QString filterName, int kernelSize) : AbstractKernelFilter (filterName, "GaussianBlur")
+{
+    this->kernel_size = kernelSize;
 }
 
 void GaussianBlur::Process(cv::Mat &image)

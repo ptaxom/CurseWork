@@ -5,8 +5,8 @@
 
 ImageController::ImageController()
 {
-    this->filters.push_back(new GaussianBlur(5));
-    this->filters.push_back(new MedianBlur(5));
+    this->filters.push_back(new GaussianBlur("Filter 1", 2));
+    this->filters.push_back(new MedianBlur("Filter 2", 3));
 }
 
 ImageController::~ImageController()

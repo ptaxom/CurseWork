@@ -7,7 +7,7 @@
 class GaussianBlur : public AbstractKernelFilter
 {
 public:
-    GaussianBlur(int kernelSize = 1);
+    GaussianBlur(QString filterName, int kernelSize = 1);
 
     void Process(cv::Mat &image) override;
 };

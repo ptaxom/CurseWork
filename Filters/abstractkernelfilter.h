@@ -6,15 +6,12 @@
 class AbstractKernelFilter : public AbstractFilter
 {
 public:
-    AbstractKernelFilter(QString filterName, int kernelSize = 1);
+    AbstractKernelFilter(QString filterName, QString filterType = "AbstractKernelFilter", int kernelSize = 1);
 
     virtual void Process(cv::Mat &image);
 
 protected:
     int kernel_size;
-
-private:
-    QString filterName;
 
 };
 
