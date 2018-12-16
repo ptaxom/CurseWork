@@ -11,6 +11,7 @@
 #include "imagecontroller.h"
 #include "mediawriter.h"
 #include "facedetector.h"
+#include "ImageControllerForm/imagecontrollersettings.h"
 
 namespace Ui {
 class MainWindow;
