@@ -6,7 +6,9 @@ class MedianBlur : public AbstractKernelFilter
 {
 public:
     MedianBlur(QString filterName, int kernelSize = 1);
+
     void Process(cv::Mat &image) override;
+    AbstractFilter* clone() override;
 };
 
 #endif // MEDIANBLUR_H

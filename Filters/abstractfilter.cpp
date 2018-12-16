@@ -8,10 +8,6 @@ AbstractFilter::AbstractFilter(QString filterName, QString filterType)
     this->filterType = filterType;
 }
 
-void AbstractFilter::Process(cv::Mat &image)
-{
-
-}
 
 QString AbstractFilter::getFilterName() const
 {

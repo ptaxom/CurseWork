@@ -59,7 +59,7 @@
     </property>
     <addaction name="actWriterSettings"/>
     <addaction name="separator"/>
-    <addaction name="action_7"/>
+    <addaction name="actFilterSettings"/>
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="title">
@@ -101,7 +101,7 @@
     <string>Сохранение файлов</string>
    </property>
   </action>
-  <action name="action_7">
+  <action name="actFilterSettings">
    <property name="text">
     <string>Фильтры</string>
    </property>

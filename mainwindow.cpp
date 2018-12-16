@@ -13,7 +13,6 @@ MainWindow::MainWindow(QWidget *parent) :
     this->cSourse = CameraSource(0);
     this->writer = MediaWriter();
 
-
     labelThread = new QTimer(this);
     connect(labelThread, SIGNAL(timeout()), this, SLOT(UpdateLabelImage()));
     labelThread->start(15);
@@ -36,11 +35,14 @@ void MainWindow::UpdateLabelImage()
 
     cv::Mat frame = cSourse.grabCVIMage();
 
+
+
     if (this->writer.isRecordingVideo())
     {
         this->writer.addFrame(frame);
         cv::circle(frame,cv::Point(30,30),10,cv::Scalar(0,0,255),-1);
     }
+
 
 
     this->controller.ApplyFilters(frame);
@@ -131,3 +133,8 @@ void MainWindow::on_actWriterSettings_triggered()
     window.exec();
 }
 
+
+void MainWindow::on_actFilterSettings_triggered()
+{
+
+}

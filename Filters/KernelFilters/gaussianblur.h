@@ -10,6 +10,7 @@ public:
     GaussianBlur(QString filterName, int kernelSize = 1);
 
     void Process(cv::Mat &image) override;
+    AbstractFilter* clone() override;
 };
 
 #endif // GAUSSIANBLUR_H

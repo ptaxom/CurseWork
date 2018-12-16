@@ -15,8 +15,31 @@ ImageController::~ImageController()
         delete obj;
 }
 
+
+ImageController::ImageController(const ImageController &other)
+{
+    this->filters.clear();
+
+    for(auto obj : other.filters)
+        this->filters.push_back(obj->clone());
+}
+
+ImageController &ImageController::operator=(const ImageController &other)
+{
+    this->filters.clear();
+
+    for(auto obj : other.filters)
+        this->filters.push_back(obj->clone());
+    return *this;
+}
+
 void ImageController::ApplyFilters(cv::Mat &frame)
 {
     for(auto obj : this->filters)
         obj->Process(frame);
+}
+
+std::vector<AbstractFilter *> ImageController::getFilters()
+{
+    return this->filters;
 }

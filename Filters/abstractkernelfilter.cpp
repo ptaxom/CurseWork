@@ -7,8 +7,3 @@ AbstractKernelFilter::AbstractKernelFilter(QString filterName, QString filterTyp
     this->kernel_size = kernelSize;
 }
 
-void AbstractKernelFilter::Process(cv::Mat &image)
-{
-
-}
-

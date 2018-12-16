@@ -10,6 +10,7 @@
 #include "camerasource.h"
 #include "imagecontroller.h"
 #include "mediawriter.h"
+#include "facedetector.h"
 
 namespace Ui {
 class MainWindow;
@@ -36,6 +37,8 @@ private slots:
 
     void on_actWriterSettings_triggered();
 
+    void on_actFilterSettings_triggered();
+
 private:
 
     Ui::MainWindow *ui;
@@ -48,6 +51,8 @@ private:
     CameraSource cSourse;
     MediaWriter writer;
     ImageController controller;
+
+    Detector::FaceDetector detector;
 
     double frameCaptureTimes = 0;
     int framesCount = 0;

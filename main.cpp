@@ -9,16 +9,18 @@
 #include <iostream>
 #include <opencv2/core.hpp>
 
-#include "Filters/imagecontrollereditor.h"
-
 int main(int argc, char *argv[])
 {
 
 
     QApplication a(argc, argv);
-//    MainWindow w;
-//    w.show();
-    ImageControllerEditor w;
+    MainWindow w;
     w.show();
+
+//    ImageController b;
+//    ImageControllerEditor c(&b);
+//    c.show();
+
+
     return a.exec();
 }
