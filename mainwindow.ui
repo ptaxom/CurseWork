@@ -105,6 +105,9 @@
    <property name="text">
     <string>Фильтры</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
   </action>
   <action name="action_8">
    <property name="text">

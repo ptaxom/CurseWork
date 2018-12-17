@@ -2,22 +2,24 @@
 #include "ui_kernelfiltereditor.h"
 
 
-KernelFilterEditor::KernelFilterEditor(ImageController *controller_, int index_, QWidget *parent):
+KernelFilterEditor::KernelFilterEditor(AbstractFilter *filter_, std::vector<QString> names_, QWidget *parent):
     QDialog(parent),
     ui(new Ui::KernelFilterEditor),
-    controller(controller_),
-    index(index_),
+    filter(filter_),
+    names(names_),
     isClose(false)
 {
     ui->setupUi(this);
-    if (!inRange(index))
+    if (filter == nullptr)
     {
         ui->lblName->setText("Добавление нового фильтра");
         ui->lblMatrixSize->setText(getMatrixLabel(1));
     }
     else {
-        ui->lblName->setText("Редактирование фильтра " + controller->getFilters()[index]->getFilterName());
-        ui->horizontalSlider->setValue(dynamic_cast<AbstractKernelFilter*>(controller->getFilters()[index])->getKernelSize());
+        ui->lblName->setText("Редактирование фильтра " + filter->getFilterName());
+        ui->horizontalSlider->setValue(
+                    std::dynamic_pointer_cast<AbstractKernelFilter>(filter)
+                    ->getKernelSize() );
         ui->lblMatrixSize->setText(getMatrixLabel(ui->horizontalSlider->value()));
     }
 
@@ -33,23 +35,15 @@ bool KernelFilterEditor::isClosed() const
     return this->isClose;
 }
 
-ImageController *KernelFilterEditor::getController() const
+AbstPtr KernelFilterEditor::getFilter() const
 {
-    return this->controller;
-}
-
-bool KernelFilterEditor::inRange(int i) const
-{
-    return (0 <= i && i < controller->getFilters().size());
+    return this->filter;
 }
 
 bool KernelFilterEditor::isDeclaratedName(const QString &name) const
 {
-//    return std::find_if(controller->getFilters().begin(), controller->getFilters().end(),
-//                        [&name](AbstractFilter *obj)
-//                        {return obj->getFilterName() == name;})
-//    != controller->getFilters().end();
-    return false;
+    return std::find(names.begin(), names.end(), name) != names.end();
+    //return false;
 }
 
 QString KernelFilterEditor::getMatrixLabel(int size) const
@@ -58,24 +52,21 @@ QString KernelFilterEditor::getMatrixLabel(int size) const
     return QString::fromStdString(std::string("Матрица ") + tSize + "x" + tSize);
 }
 
-void KernelFilterEditor::addFilterFromFactory()
+AbstPtr KernelFilterEditor::getFilterFromFactory()
 {
-    AbstractFilter *filter = nullptr;
+    AbstPtr changedFilter(nullptr);
     QString name = ui->lineEdit->text();
     if (name.isEmpty())
         throw std::runtime_error("Название фильтра не может быть пустым!");
-    if (isDeclaratedName(name))
+    if (isDeclaratedName(name) && this->filter == nullptr)
         throw std::runtime_error("Фильтр" + std::string(name.toLocal8Bit().constData()) + "уже существует!");
+    if (isDeclaratedName(name) && this->filter != nullptr)
+        throw std::runtime_error("Название фильтра не может совпадать с предыдущим");
     switch (ui->comboBox->currentIndex()) {
-    case 0: filter = new GaussianBlur(name, ui->horizontalSlider->value()); break;
-    case 1: filter = new MedianBlur(name, ui->horizontalSlider->value()); break;
+    case 0: changedFilter =  AbstPtr(new GaussianBlur(name, ui->horizontalSlider->value())); break;
+    case 1: changedFilter =  AbstPtr(new MedianBlur(name, ui->horizontalSlider->value())); break;
     }
-    if (inRange(index))
-    {
-        delete controller->getFilters()[index];
-        controller->getFilters()[index] = filter;
-    }
-    else controller->getFilters().push_back(filter);
+    return changedFilter;
 }
 
 void KernelFilterEditor::on_btnCancel_clicked()
@@ -87,7 +78,10 @@ void KernelFilterEditor::on_btnCancel_clicked()
 void KernelFilterEditor::on_btnOk_clicked()
 {
     try {
-        addFilterFromFactory();
+        AbstPtr newFilter = getFilterFromFactory();
+        if (this->filter != nullptr)
+            delete this->filter.get();
+        this->filter = newFilter;
     } catch (const std::runtime_error &ex) {
         QMessageBox::critical(this, "Ошибка", QString::fromStdString(ex.what()));
         ui->lineEdit->setText("");

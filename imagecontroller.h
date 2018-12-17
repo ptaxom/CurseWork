@@ -1,6 +1,7 @@
 #ifndef IMAGECONTROLLER_H
 #define IMAGECONTROLLER_H
 
+#include<memory>
 #include <vector>
 #include "Filters/abstractfilter.h"
 
@@ -21,5 +22,8 @@ public:
 private:
     std::vector<AbstractFilter*> filters;
 };
+
+using AbstPtr = std::shared_ptr<AbstractFilter>;
+
 
 #endif // IMAGECONTROLLER_H

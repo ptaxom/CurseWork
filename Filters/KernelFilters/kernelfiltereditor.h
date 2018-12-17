@@ -2,6 +2,7 @@
 #define KERNELFILTEREDITOR_H
 
 #include <QDialog>
+#include <memory>
 #include "../../imagecontroller.h"
 #include "../abstractkernelfilter.h"
 
@@ -10,6 +11,8 @@
 
 
 #include <QMessageBox>
+
+//using AbstPtr = std::shared_ptr<AbstractFilter>;
 
 namespace Ui {
 class KernelFilterEditor;
@@ -20,14 +23,12 @@ class KernelFilterEditor : public QDialog
     Q_OBJECT
 
 public:
-    explicit KernelFilterEditor(ImageController *controller, int index, QWidget *parent = nullptr);
+    explicit KernelFilterEditor(AbstractFilter *filter, std::vector<QString> names, QWidget *parent = nullptr);
     ~KernelFilterEditor();
 
 
     bool isClosed() const;
-
-    ImageController *getController() const;
-
+    AbstPtr getFilter() const;
 
 private slots:
     void on_btnCancel_clicked();
@@ -40,16 +41,17 @@ private slots:
 
 private:
     Ui::KernelFilterEditor *ui;
-    ImageController *controller;
-    int index;
+    AbstPtr filter;
+    std::vector<QString> names;
 
     bool isClose;
 
-    bool inRange(int i) const;
     bool isDeclaratedName(const QString &name) const;
     QString getMatrixLabel(int size) const;
 
-    void addFilterFromFactory();
+    AbstPtr getFilterFromFactory();
+
+
 };
 
 #endif // KERNELFILTEREDITOR_H

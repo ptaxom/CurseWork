@@ -19,6 +19,8 @@ public:
 
     void fillListView();
 
+    std::vector<QString> getDeclaratedNames() const;
+
 private slots:
     void on_btnAdd_clicked();
 
