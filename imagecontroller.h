@@ -17,6 +17,8 @@ public:
 
     void ApplyFilters(cv::Mat &frame);
 
+    void Clone(const ImageController &other);
+
     std::vector<AbstractFilter *> &getFilters();
 
 private:

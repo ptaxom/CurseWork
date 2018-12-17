@@ -58,16 +58,16 @@ void ImageControllerSettings::on_btnAdd_clicked()
         editor.setModal(true);
         editor.exec();
         while (!editor.isClosed());
-        AbstPtr filter = editor.getFilter();
+        AbstractFilter* filter = editor.getFilter();
         if (filter)
-            bufferController.getFilters().push_back(filter.get());
+            bufferController.getFilters().push_back(filter);
     }
     fillListView();
 }
 
 void ImageControllerSettings::on_btnAccept_clicked()
 {
-    this->controller = &this->bufferController;
+    this->controller->Clone(this->bufferController);
     this->close();
 }
 

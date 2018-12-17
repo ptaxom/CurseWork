@@ -40,6 +40,14 @@ void ImageController::ApplyFilters(cv::Mat &frame)
         obj->Process(frame);
 }
 
+void ImageController::Clone(const ImageController &other)
+{
+    this->filters.clear();
+
+    for(auto obj : other.filters)
+        this->filters.push_back(obj->clone());
+}
+
 std::vector<AbstractFilter *> &ImageController::getFilters()
 {
     return this->filters;

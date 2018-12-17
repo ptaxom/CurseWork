@@ -142,4 +142,6 @@ void MainWindow::on_actFilterSettings_triggered()
     ImageControllerSettings window(&this->controller);
     window.setModal(true);
     window.exec();
+
+    qDebug() << "123";
 }

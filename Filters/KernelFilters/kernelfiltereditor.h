@@ -28,7 +28,7 @@ public:
 
 
     bool isClosed() const;
-    AbstPtr getFilter() const;
+    AbstractFilter* getFilter() const;
 
 private slots:
     void on_btnCancel_clicked();
@@ -41,7 +41,7 @@ private slots:
 
 private:
     Ui::KernelFilterEditor *ui;
-    AbstPtr filter;
+    AbstractFilter* filter;
     std::vector<QString> names;
 
     bool isClose;
@@ -49,7 +49,7 @@ private:
     bool isDeclaratedName(const QString &name) const;
     QString getMatrixLabel(int size) const;
 
-    AbstPtr getFilterFromFactory();
+    AbstractFilter* getFilterFromFactory();
 
 
 };

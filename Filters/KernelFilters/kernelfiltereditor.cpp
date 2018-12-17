@@ -18,7 +18,7 @@ KernelFilterEditor::KernelFilterEditor(AbstractFilter *filter_, std::vector<QStr
     else {
         ui->lblName->setText("Редактирование фильтра " + filter->getFilterName());
         ui->horizontalSlider->setValue(
-                    std::dynamic_pointer_cast<AbstractKernelFilter>(filter)
+                    dynamic_cast<AbstractKernelFilter*>(filter)
                     ->getKernelSize() );
         ui->lblMatrixSize->setText(getMatrixLabel(ui->horizontalSlider->value()));
     }
@@ -35,7 +35,7 @@ bool KernelFilterEditor::isClosed() const
     return this->isClose;
 }
 
-AbstPtr KernelFilterEditor::getFilter() const
+AbstractFilter* KernelFilterEditor::getFilter() const
 {
     return this->filter;
 }
@@ -52,9 +52,9 @@ QString KernelFilterEditor::getMatrixLabel(int size) const
     return QString::fromStdString(std::string("Матрица ") + tSize + "x" + tSize);
 }
 
-AbstPtr KernelFilterEditor::getFilterFromFactory()
+AbstractFilter* KernelFilterEditor::getFilterFromFactory()
 {
-    AbstPtr changedFilter(nullptr);
+    AbstractFilter* changedFilter = nullptr;
     QString name = ui->lineEdit->text();
     if (name.isEmpty())
         throw std::runtime_error("Название фильтра не может быть пустым!");
@@ -63,8 +63,8 @@ AbstPtr KernelFilterEditor::getFilterFromFactory()
     if (isDeclaratedName(name) && this->filter != nullptr)
         throw std::runtime_error("Название фильтра не может совпадать с предыдущим");
     switch (ui->comboBox->currentIndex()) {
-    case 0: changedFilter =  AbstPtr(new GaussianBlur(name, ui->horizontalSlider->value())); break;
-    case 1: changedFilter =  AbstPtr(new MedianBlur(name, ui->horizontalSlider->value())); break;
+    case 0: changedFilter =  new GaussianBlur(name, ui->horizontalSlider->value()); break;
+    case 1: changedFilter =  new MedianBlur(name, ui->horizontalSlider->value()); break;
     }
     return changedFilter;
 }
@@ -78,9 +78,9 @@ void KernelFilterEditor::on_btnCancel_clicked()
 void KernelFilterEditor::on_btnOk_clicked()
 {
     try {
-        AbstPtr newFilter = getFilterFromFactory();
+        AbstractFilter* newFilter = getFilterFromFactory();
         if (this->filter != nullptr)
-            delete this->filter.get();
+            delete this->filter;
         this->filter = newFilter;
     } catch (const std::runtime_error &ex) {
         QMessageBox::critical(this, "Ошибка", QString::fromStdString(ex.what()));
