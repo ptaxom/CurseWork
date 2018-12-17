@@ -26,6 +26,8 @@ private slots:
 
     void on_btnAccept_clicked();
 
+    void on_btnDelete_clicked();
+
 private:
     Ui::ImageControllerSettings *ui;
     ImageController *controller;

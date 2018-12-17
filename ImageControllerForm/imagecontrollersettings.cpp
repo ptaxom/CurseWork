@@ -13,7 +13,7 @@ ImageControllerSettings::ImageControllerSettings(ImageController *ctrl, QWidget 
     this->bufferController = *this->controller;
 
 
-
+   //ui->listFilters->setSelectionMode(QAbstractItemView::SingleSelection);
 
     this->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
     this->setFocus();
@@ -80,5 +80,20 @@ void ImageControllerSettings::keyPressEvent(QKeyEvent *event)
 void ImageControllerSettings::mouseMoveEvent(QMouseEvent *event)
 {
    // qDebug() << "Mouse moved\n";
-    fillListView();
+    //fillListView();
+}
+
+void ImageControllerSettings::on_btnDelete_clicked()
+{
+    int indexToDelete = ui->listFilters->currentRow();
+    if (indexToDelete != -1)
+    {
+        QMessageBox::StandardButton reply;
+          reply = QMessageBox::question(this, "Подтверждение действия", "Вы действительно хотите удалить фильтр " + ui->listFilters->currentItem()->text() + "?",
+                                        QMessageBox::Yes|QMessageBox::No);
+          if (reply == QMessageBox::Yes) {
+              bufferController.getFilters().erase(bufferController.getFilters().begin() + indexToDelete);
+              fillListView();
+          }
+    }
 }
