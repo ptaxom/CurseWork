@@ -40,7 +40,7 @@ void ImageController::ApplyFilters(cv::Mat &frame)
         obj->Process(frame);
 }
 
-std::vector<AbstractFilter *> ImageController::getFilters()
+std::vector<AbstractFilter *> &ImageController::getFilters()
 {
     return this->filters;
 }

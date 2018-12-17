@@ -17,7 +17,7 @@ public:
 
     void ApplyFilters(cv::Mat &frame);
 
-    std::vector<AbstractFilter *> getFilters();
+    std::vector<AbstractFilter *> &getFilters();
 
 private:
     std::vector<AbstractFilter*> filters;

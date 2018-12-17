@@ -13,11 +13,6 @@ ImageControllerSettings::ImageControllerSettings(ImageController *ctrl, QWidget 
     this->bufferController = *this->controller;
 
 
-    qDebug() << "Vector size before: " << controller->getFilters().size() << "\n";
-    qDebug() << "Vector capacity before: " << controller->getFilters().capacity() << "\n";
-        controller->getFilters().push_back(new GaussianBlur("23", 8));
-    qDebug() << "Vector size after: " << controller->getFilters().size() << "\n";
-    qDebug() << "Vector capacity after: " << controller->getFilters().capacity() << "\n";
 
 
     this->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
@@ -64,12 +59,8 @@ void ImageControllerSettings::on_btnAdd_clicked()
         editor.exec();
         while (!editor.isClosed());
         AbstPtr filter = editor.getFilter();
-        qDebug() << "Vector size before: " << bufferController.getFilters().size() << "\n";
-        qDebug() << "Vector capacity before: " << bufferController.getFilters().capacity() << "\n";
         if (filter)
             bufferController.getFilters().push_back(filter.get());
-        qDebug() << "Vector size after: " << bufferController.getFilters().size() << "\n";
-        qDebug() << "Vector capacity after: " << bufferController.getFilters().capacity() << "\n";
     }
     fillListView();
 }
