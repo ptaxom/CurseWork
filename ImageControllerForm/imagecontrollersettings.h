@@ -18,9 +18,9 @@ public:
     ~ImageControllerSettings();
 
     void fillListView();
+
 private slots:
     void on_btnAdd_clicked();
-
 
     void on_btnAccept_clicked();
 
@@ -29,6 +29,9 @@ private:
     ImageController *controller;
     ImageController bufferController;
 
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
 
 };
 

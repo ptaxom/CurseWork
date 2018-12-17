@@ -24,6 +24,11 @@ public:
     ~KernelFilterEditor();
 
 
+    bool isClosed() const;
+
+    ImageController *getController() const;
+
+
 private slots:
     void on_btnCancel_clicked();
 
@@ -37,6 +42,8 @@ private:
     Ui::KernelFilterEditor *ui;
     ImageController *controller;
     int index;
+
+    bool isClose;
 
     bool inRange(int i) const;
     bool isDeclaratedName(const QString &name) const;

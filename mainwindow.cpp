@@ -45,6 +45,8 @@ void MainWindow::UpdateLabelImage()
 
 
 
+
+
     this->controller.ApplyFilters(frame);
 
     QImage img = convertFromMatToQImage(frame);

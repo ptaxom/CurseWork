@@ -7,6 +7,12 @@ ImageControllerSettings::ImageControllerSettings(ImageController *ctrl, QWidget 
 {
     this->controller = ctrl;
     this->bufferController = *this->controller;
+
+    this->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
+    this->setFocus();
+
+    this->setMouseTracking(true);
+
     this->installEventFilter(this);
     ui->setupUi(this);
     this->fillListView();
@@ -26,7 +32,6 @@ void ImageControllerSettings::fillListView()
         ui->listFilters->addItem(obj->getFilterName());
 }
 
-#include <QMessageBox>
 
 
 void ImageControllerSettings::on_btnAdd_clicked()
@@ -36,6 +41,8 @@ void ImageControllerSettings::on_btnAdd_clicked()
         KernelFilterEditor editor(&bufferController, -1);
         editor.setModal(true);
         editor.exec();
+        while (!editor.isClosed());
+        fillListView();
     }
 }
 
@@ -43,4 +50,17 @@ void ImageControllerSettings::on_btnAccept_clicked()
 {
     this->controller = &this->bufferController;
     this->close();
+}
+
+#include <QDebug>
+
+void ImageControllerSettings::keyPressEvent(QKeyEvent *event)
+{
+ //   qDebug() << "Key pressed\n";
+}
+
+void ImageControllerSettings::mouseMoveEvent(QMouseEvent *event)
+{
+   // qDebug() << "Mouse moved\n";
+    fillListView();
 }

@@ -6,7 +6,8 @@ KernelFilterEditor::KernelFilterEditor(ImageController *controller_, int index_,
     QDialog(parent),
     ui(new Ui::KernelFilterEditor),
     controller(controller_),
-    index(index_)
+    index(index_),
+    isClose(false)
 {
     ui->setupUi(this);
     if (!inRange(index))
@@ -25,6 +26,16 @@ KernelFilterEditor::KernelFilterEditor(ImageController *controller_, int index_,
 KernelFilterEditor::~KernelFilterEditor()
 {
     delete ui;
+}
+
+bool KernelFilterEditor::isClosed() const
+{
+    return this->isClose;
+}
+
+ImageController *KernelFilterEditor::getController() const
+{
+    return this->controller;
 }
 
 bool KernelFilterEditor::inRange(int i) const
@@ -69,6 +80,7 @@ void KernelFilterEditor::addFilterFromFactory()
 
 void KernelFilterEditor::on_btnCancel_clicked()
 {
+    this->isClose = true;
     this->close();
 }
 
@@ -81,6 +93,7 @@ void KernelFilterEditor::on_btnOk_clicked()
         ui->lineEdit->setText("");
         return;
     }
+    this->isClose = true;
     this->close();
 }
 
