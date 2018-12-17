@@ -7,6 +7,7 @@ ImageControllerSettings::ImageControllerSettings(ImageController *ctrl, QWidget 
 {
     this->controller = ctrl;
     this->bufferController = *this->controller;
+    this->installEventFilter(this);
     ui->setupUi(this);
     this->fillListView();
 }
@@ -27,3 +28,19 @@ void ImageControllerSettings::fillListView()
 
 #include <QMessageBox>
 
+
+void ImageControllerSettings::on_btnAdd_clicked()
+{
+    if (ui->comboBox->currentIndex() == 0)
+    {
+        KernelFilterEditor editor(&bufferController, -1);
+        editor.setModal(true);
+        editor.exec();
+    }
+}
+
+void ImageControllerSettings::on_btnAccept_clicked()
+{
+    this->controller = &this->bufferController;
+    this->close();
+}

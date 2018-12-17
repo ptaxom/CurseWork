@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "../imagecontroller.h"
+#include "../Filters/KernelFilters/kernelfiltereditor.h"
 
 namespace Ui {
 class ImageControllerSettings;
@@ -17,10 +18,18 @@ public:
     ~ImageControllerSettings();
 
     void fillListView();
+private slots:
+    void on_btnAdd_clicked();
+
+
+    void on_btnAccept_clicked();
+
 private:
     Ui::ImageControllerSettings *ui;
     ImageController *controller;
     ImageController bufferController;
+
+
 };
 
 #endif // IMAGECONTROLLERSETTINGS_H

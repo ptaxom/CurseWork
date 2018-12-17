@@ -11,6 +11,8 @@ public:
     virtual void Process(cv::Mat &image) {}
     virtual AbstractFilter* clone() {return nullptr; }
 
+    int getKernelSize() const;
+
 protected:
     int kernel_size;
 

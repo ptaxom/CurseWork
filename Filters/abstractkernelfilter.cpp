@@ -7,3 +7,8 @@ AbstractKernelFilter::AbstractKernelFilter(QString filterName, QString filterTyp
     this->kernel_size = kernelSize;
 }
 
+int AbstractKernelFilter::getKernelSize() const
+{
+    return this->kernel_size;
+}
+
