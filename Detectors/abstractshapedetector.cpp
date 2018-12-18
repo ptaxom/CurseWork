@@ -1,13 +1,11 @@
 #include "abstractshapedetector.h"
 
-AbstractShapeDetector::AbstractShapeDetector(QString detectorName, QString detectorType)
+AbstractShapeDetector::AbstractShapeDetector(QString detectorName, QString detectorType) : AbstractFilter (detectorName, detectorType)
 {
-    this->detectorName = detectorName;
-    this->detectorType = detectorType;
 
 }
 
-void AbstractShapeDetector::ProcessShapes(cv::Mat &image) const
+void AbstractShapeDetector::Process(cv::Mat &image) const
 {
     try {
         std::vector<cv::Rect> shapes = this->getShapesBounds(image);
@@ -20,3 +18,4 @@ void AbstractShapeDetector::ProcessShapes(cv::Mat &image) const
         return;
     }
 }
+

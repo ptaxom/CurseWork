@@ -3,11 +3,12 @@
 
 
 #include "../imagecontroller.h"
+#include "../Filters/abstractfilter.h"
 
 #include <opencv2/core.hpp>
 #include <opencv2/objdetect.hpp>
 
-class AbstractShapeDetector
+class AbstractShapeDetector : public AbstractFilter
 {
 public:
     AbstractShapeDetector(QString detectorName, QString detectorType = "AbstractDetector");
@@ -18,10 +19,14 @@ public:
         return std::vector<cv::Rect>();
     }
 
-    void ProcessShapes(cv::Mat &image) const;
+    void Process(cv::Mat &image) const override;
 
-    QString getDetectorName() const;
-    QString getDetectorType() const;
+    virtual AbstractFilter* clone() const { return nullptr; }
+
+    QString getFilterType() const;
+    QString getFilterName() const;
+
+    int getIndex() const;
 
     ImageController& getPreprocessorRef();
     ImageController& getPostprocessorRef();
@@ -32,8 +37,6 @@ private:
     ImageController detectorPreprocessor;
     ImageController imagePostprocessor;
 
-    QString detectorName;
-    QString detectorType;
 };
 
 #endif // ABSTRACTSHAPEDETECTOR_H
