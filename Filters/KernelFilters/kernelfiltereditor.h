@@ -51,6 +51,8 @@ private:
 
     AbstractFilter* getFilterFromFactory();
 
+    void closeEvent(QCloseEvent *event) override;
+
 
 };
 

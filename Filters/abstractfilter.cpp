@@ -8,13 +8,19 @@ AbstractFilter::AbstractFilter(QString filterName, QString filterType)
     this->filterType = filterType;
 }
 
+QString AbstractFilter::getFilterType() const
+{
+    return this->filterType;
+}
+
 
 QString AbstractFilter::getFilterName() const
 {
     return filterName;
 }
 
-QString AbstractFilter::getFilterType() const
+int AbstractFilter::getIndex() const
 {
-    return filterType;
+    return this->indexInComboBox;
 }
+

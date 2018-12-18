@@ -28,6 +28,8 @@ private slots:
 
     void on_btnDelete_clicked();
 
+    void on_listFilters_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::ImageControllerSettings *ui;
     ImageController *controller;

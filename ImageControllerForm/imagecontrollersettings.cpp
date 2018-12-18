@@ -72,16 +72,9 @@ void ImageControllerSettings::on_btnAccept_clicked()
 }
 
 
-void ImageControllerSettings::keyPressEvent(QKeyEvent *event)
-{
- //   qDebug() << "Key pressed\n";
-}
+void ImageControllerSettings::keyPressEvent(QKeyEvent *event) {}
 
-void ImageControllerSettings::mouseMoveEvent(QMouseEvent *event)
-{
-   // qDebug() << "Mouse moved\n";
-    //fillListView();
-}
+void ImageControllerSettings::mouseMoveEvent(QMouseEvent *event) {}
 
 void ImageControllerSettings::on_btnDelete_clicked()
 {
@@ -96,4 +89,19 @@ void ImageControllerSettings::on_btnDelete_clicked()
               fillListView();
           }
     }
+}
+
+void ImageControllerSettings::on_listFilters_doubleClicked(const QModelIndex &index)
+{
+    AbstractFilter* editedFilter = bufferController.getFilters()[index.row()];
+    if (editedFilter->getFilterType() == "AbstractKernelFilter")
+    {
+        KernelFilterEditor editor(editedFilter,getDeclaratedNames());
+        editor.setModal(true);
+        editor.exec();
+        while (!editor.isClosed());
+        bufferController.getFilters()[index.row()] = editor.getFilter();
+
+    }
+    fillListView();
 }

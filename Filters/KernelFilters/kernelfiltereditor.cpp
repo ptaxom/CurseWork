@@ -17,6 +17,8 @@ KernelFilterEditor::KernelFilterEditor(AbstractFilter *filter_, std::vector<QStr
     }
     else {
         ui->lblName->setText("Редактирование фильтра " + filter->getFilterName());
+        ui->lineEdit->setText(filter->getFilterName());
+        ui->comboBox->setCurrentIndex(filter->getIndex());
         ui->horizontalSlider->setValue(
                     dynamic_cast<AbstractKernelFilter*>(filter)
                     ->getKernelSize() );
@@ -60,13 +62,16 @@ AbstractFilter* KernelFilterEditor::getFilterFromFactory()
         throw std::runtime_error("Название фильтра не может быть пустым!");
     if (isDeclaratedName(name) && this->filter == nullptr)
         throw std::runtime_error("Фильтр" + std::string(name.toLocal8Bit().constData()) + "уже существует!");
-    if (isDeclaratedName(name) && this->filter != nullptr)
-        throw std::runtime_error("Название фильтра не может совпадать с предыдущим");
     switch (ui->comboBox->currentIndex()) {
     case 0: changedFilter =  new GaussianBlur(name, ui->horizontalSlider->value()); break;
     case 1: changedFilter =  new MedianBlur(name, ui->horizontalSlider->value()); break;
     }
     return changedFilter;
+}
+
+void KernelFilterEditor::closeEvent(QCloseEvent *event)
+{
+    this->isClose = true;
 }
 
 void KernelFilterEditor::on_btnCancel_clicked()

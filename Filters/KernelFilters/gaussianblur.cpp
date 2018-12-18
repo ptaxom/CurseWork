@@ -3,8 +3,9 @@
 
 
 
-GaussianBlur::GaussianBlur(QString filterName, int kernelSize) : AbstractKernelFilter (filterName, "GaussianBlur")
+GaussianBlur::GaussianBlur(QString filterName, int kernelSize) : AbstractKernelFilter (filterName)
 {
+    this->indexInComboBox = 0;
     this->kernel_size = kernelSize;
 }
 

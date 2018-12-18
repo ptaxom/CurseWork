@@ -2,9 +2,10 @@
 
 
 
-MedianBlur::MedianBlur(QString filterName, int kernelSize) : AbstractKernelFilter (filterName, "MedianBlur")
+MedianBlur::MedianBlur(QString filterName, int kernelSize) : AbstractKernelFilter (filterName)
 {
     this->kernel_size = kernelSize;
+    this->indexInComboBox = 1;
 }
 
 void MedianBlur::Process(cv::Mat &image)

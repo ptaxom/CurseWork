@@ -7,6 +7,8 @@
 
 #include <Windows.h>
 #include <iostream>
+#include <QDebug>
+
 #include <opencv2/core.hpp>
 
 int main(int argc, char *argv[])
@@ -16,6 +18,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
+
 
 //    ImageController b;
 //    ImageControllerEditor c(&b);
