@@ -5,7 +5,7 @@
 
 #include <QDebug>
 
-ImageControllerSettings::ImageControllerSettings(ImageController *ctrl, QWidget *parent) :
+ImageControllerSettings::ImageControllerSettings(ImageController *ctrl,QString wndTitle, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ImageControllerSettings)
 {
@@ -21,7 +21,8 @@ ImageControllerSettings::ImageControllerSettings(ImageController *ctrl, QWidget 
     this->setMouseTracking(true);
 
     this->installEventFilter(this);
-    ui->setupUi(this);
+    ui->setupUi(this);    
+    this->setWindowTitle(wndTitle);
     this->fillListView();
 }
 

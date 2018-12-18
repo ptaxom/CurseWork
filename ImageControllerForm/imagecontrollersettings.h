@@ -14,7 +14,7 @@ class ImageControllerSettings : public QDialog
     Q_OBJECT
 
 public:
-    explicit ImageControllerSettings(ImageController *ctrl, QWidget *parent = nullptr);
+    explicit ImageControllerSettings(ImageController *ctrl,QString wndTitle, QWidget *parent = nullptr);
     ~ImageControllerSettings();
 
     void fillListView();

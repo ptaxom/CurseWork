@@ -8,8 +8,8 @@ class AbstractKernelFilter : public AbstractFilter
 public:
     AbstractKernelFilter(QString filterName, QString filterType = "AbstractKernelFilter" , int kernelSize = 1);
 
-    virtual void Process(cv::Mat &image) {}
-    virtual AbstractFilter* clone() {return nullptr; }
+    virtual void Process(cv::Mat &image) const {}
+    virtual AbstractFilter* clone() const {return nullptr; }
 
     int getKernelSize() const;
 

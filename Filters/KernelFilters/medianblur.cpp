@@ -8,12 +8,12 @@ MedianBlur::MedianBlur(QString filterName, int kernelSize) : AbstractKernelFilte
     this->indexInComboBox = 1;
 }
 
-void MedianBlur::Process(cv::Mat &image)
+void MedianBlur::Process(cv::Mat &image) const
 {
     cv::medianBlur(image, image, this->kernel_size * 2 + 1);
 }
 
-AbstractFilter *MedianBlur::clone()
+AbstractFilter *MedianBlur::clone() const
 {
     return new MedianBlur(this->getFilterName(), this->kernel_size);
 }

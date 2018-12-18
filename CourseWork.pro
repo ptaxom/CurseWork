@@ -61,7 +61,9 @@ SOURCES += \
     Filters/KernelFilters/gaussianblur.cpp \
     Filters/KernelFilters/medianblur.cpp \
     Filters/KernelFilters/kernelfiltereditor.cpp \
-    ImageControllerForm/imagecontrollersettings.cpp
+    ImageControllerForm/imagecontrollersettings.cpp \
+    Detectors/1.cpp \
+    Detectors/abstractshapedetector.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -95,7 +97,8 @@ HEADERS += \
     Filters/KernelFilters/gaussianblur.h \
     Filters/KernelFilters/medianblur.h \
     Filters/KernelFilters/kernelfiltereditor.h \
-    ImageControllerForm/imagecontrollersettings.h
+    ImageControllerForm/imagecontrollersettings.h \
+    Detectors/abstractshapedetector.h
 
 FORMS += \
         mainwindow.ui \

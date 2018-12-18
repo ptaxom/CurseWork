@@ -17,8 +17,8 @@ class AbstractFilter
 public:
     AbstractFilter(QString filterName, QString filterType = "Abstract");
 
-    virtual void Process(cv::Mat &image) {}
-    virtual AbstractFilter* clone() { return nullptr; }
+    virtual void Process(cv::Mat &image) const {}
+    virtual AbstractFilter* clone() const { return nullptr; }
 
     QString getFilterType() const;
     QString getFilterName() const;

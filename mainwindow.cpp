@@ -139,9 +139,7 @@ void MainWindow::on_actWriterSettings_triggered()
 
 void MainWindow::on_actFilterSettings_triggered()
 {
-    ImageControllerSettings window(&this->controller);
+    ImageControllerSettings window(&this->controller, QString("Настройка фильтров"));
     window.setModal(true);
     window.exec();
-
-    qDebug() << "123";
 }
