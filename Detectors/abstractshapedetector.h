@@ -5,15 +5,20 @@
 #include "../imagecontroller.h"
 #include "../Filters/abstractfilter.h"
 
+
+#include <opencv2/imgproc.hpp>
 #include <opencv2/core.hpp>
+#include <opencv2/videoio.hpp>
+#include <opencv2/features2d.hpp>
 #include <opencv2/objdetect.hpp>
+
 
 class AbstractShapeDetector : public AbstractFilter
 {
 public:
     AbstractShapeDetector(QString detectorName, QString detectorType = "AbstractDetector");
 
-    virtual std::vector<cv::Rect>  getShapesBounds(const cv::Mat &image) const
+    virtual std::vector<cv::Rect> getShapesBounds(const cv::Mat &image) const
     {
         throw std::exception("Something goes wrong...");
         return std::vector<cv::Rect>();
@@ -21,18 +26,12 @@ public:
 
     void Process(cv::Mat &image) const override;
 
-    virtual AbstractFilter* clone() const { return nullptr; }
-
-    QString getFilterType() const;
-    QString getFilterName() const;
-
-    int getIndex() const;
 
     ImageController& getPreprocessorRef();
     ImageController& getPostprocessorRef();
 
 
-private:
+protected:
 
     ImageController detectorPreprocessor;
     ImageController imagePostprocessor;

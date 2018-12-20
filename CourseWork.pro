@@ -62,8 +62,8 @@ SOURCES += \
     Filters/KernelFilters/medianblur.cpp \
     Filters/KernelFilters/kernelfiltereditor.cpp \
     ImageControllerForm/imagecontrollersettings.cpp \
-    Detectors/1.cpp \
-    Detectors/abstractshapedetector.cpp
+    Detectors/abstractshapedetector.cpp \
+    Detectors/LBPDetector/lbpdetector.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -98,7 +98,8 @@ HEADERS += \
     Filters/KernelFilters/medianblur.h \
     Filters/KernelFilters/kernelfiltereditor.h \
     ImageControllerForm/imagecontrollersettings.h \
-    Detectors/abstractshapedetector.h
+    Detectors/abstractshapedetector.h \
+    Detectors/LBPDetector/lbpdetector.h
 
 FORMS += \
         mainwindow.ui \

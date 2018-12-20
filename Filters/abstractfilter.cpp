@@ -16,7 +16,7 @@ QString AbstractFilter::getFilterType() const
 
 QString AbstractFilter::getFilterName() const
 {
-    return filterName;
+    return this->filterName;
 }
 
 int AbstractFilter::getIndex() const

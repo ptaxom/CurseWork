@@ -18,7 +18,7 @@ public:
     AbstractFilter(QString filterName, QString filterType = "Abstract");
 
     virtual void Process(cv::Mat &image) const {}
-    virtual AbstractFilter* clone() const { return nullptr; }
+    virtual AbstractFilter* clone() const { throw std::exception("Method clone() dosn't implemented!"); return nullptr; }
 
     QString getFilterType() const;
     QString getFilterName() const;

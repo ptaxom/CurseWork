@@ -2,6 +2,7 @@
 #define ABSTRACTKERNELFILTER_H
 
 #include "abstractfilter.h"
+#include <map>
 
 class AbstractKernelFilter : public AbstractFilter
 {
@@ -15,7 +16,7 @@ public:
 
 protected:
     int kernel_size;
-
 };
+
 
 #endif // ABSTRACTKERNELFILTER_H

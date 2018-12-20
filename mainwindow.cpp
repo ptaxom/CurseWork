@@ -4,6 +4,9 @@
 
 #include <QtCore>
 
+
+#include "Detectors/LBPDetector/lbpdetector.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -13,6 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
     this->cSourse = CameraSource(0);
     this->writer = MediaWriter();
 
+    LBPDetector *a = new LBPDetector("13");
+    a->getPostprocessorRef().getFilters().push_back(new GaussianBlur("3233", 20));
+    this->controller.getFilters().push_back(a);
 
     labelThread = new QTimer(this);
     connect(labelThread, SIGNAL(timeout()), this, SLOT(UpdateLabelImage()));

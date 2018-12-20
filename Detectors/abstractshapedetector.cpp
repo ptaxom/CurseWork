@@ -1,6 +1,7 @@
 #include "abstractshapedetector.h"
 
-AbstractShapeDetector::AbstractShapeDetector(QString detectorName, QString detectorType) : AbstractFilter (detectorName, detectorType)
+AbstractShapeDetector::AbstractShapeDetector(QString detectorName, QString detectorType) :
+    AbstractFilter (detectorName, detectorType)
 {
 
 }
@@ -17,5 +18,15 @@ void AbstractShapeDetector::Process(cv::Mat &image) const
     } catch (...) {
         return;
     }
+}
+
+ImageController &AbstractShapeDetector::getPreprocessorRef()
+{
+    return this->detectorPreprocessor;
+}
+
+ImageController &AbstractShapeDetector::getPostprocessorRef()
+{
+    return this->imagePostprocessor;
 }
 

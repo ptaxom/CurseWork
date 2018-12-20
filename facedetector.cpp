@@ -10,12 +10,8 @@ FaceDetector::FaceDetector()
     cv::Ptr<cv::CascadeClassifier> cascade = cv::makePtr<cv::CascadeClassifier>(cascadeFrontalfilename);
     cv::Ptr<cv::DetectionBasedTracker::IDetector> MainDetector = cv::makePtr<Detector::CascadeDetectorAdapter>(cascade);
 
-    if ( cascade->empty() )
-        {
-          printf("Error: Cannot load %s\n", cascadeFrontalfilename.c_str());
-        }
 
-        cascade = cv::makePtr<cv::CascadeClassifier>(cascadeFrontalfilename);
+    cascade = cv::makePtr<cv::CascadeClassifier>(cascadeFrontalfilename);
         cv::Ptr<cv::DetectionBasedTracker::IDetector> TrackingDetector = cv::makePtr<Detector::CascadeDetectorAdapter>(cascade);
         if ( cascade->empty() )
         {
