@@ -63,7 +63,27 @@ SOURCES += \
     Filters/KernelFilters/kernelfiltereditor.cpp \
     ImageControllerForm/imagecontrollersettings.cpp \
     Detectors/abstractshapedetector.cpp \
-    Detectors/LBPDetector/lbpdetector.cpp
+    Detectors/LBPDetector/lbpdetector.cpp \
+    Detectors/LBPDetector/lbpdetector.cpp \
+    Detectors/abstractshapedetector.cpp \
+    Filters/KernelFilters/gaussianblur.cpp \
+    Filters/KernelFilters/kernelfiltereditor.cpp \
+    Filters/KernelFilters/medianblur.cpp \
+    Filters/abstractfilter.cpp \
+    Filters/abstractkernelfilter.cpp \
+    ImageControllerForm/imagecontrollersettings.cpp \
+    camerasource.cpp \
+    facedetector.cpp \
+    imagecontroller.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    mediawriter.cpp \
+    writersettings.cpp \
+    Filters/abstractmorphfilter.cpp \
+    Filters/MorphFilters/morphdilate.cpp \
+    Filters/MorphFilters/morpherode.cpp \
+    Filters/MorphFilters/morphopen.cpp \
+    Filters/MorphFilters/morphclose.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -99,7 +119,26 @@ HEADERS += \
     Filters/KernelFilters/kernelfiltereditor.h \
     ImageControllerForm/imagecontrollersettings.h \
     Detectors/abstractshapedetector.h \
-    Detectors/LBPDetector/lbpdetector.h
+    Detectors/LBPDetector/lbpdetector.h \
+    Detectors/LBPDetector/lbpdetector.h \
+    Detectors/abstractshapedetector.h \
+    Filters/KernelFilters/gaussianblur.h \
+    Filters/KernelFilters/kernelfiltereditor.h \
+    Filters/KernelFilters/medianblur.h \
+    Filters/abstractfilter.h \
+    Filters/abstractkernelfilter.h \
+    ImageControllerForm/imagecontrollersettings.h \
+    camerasource.h \
+    facedetector.h \
+    imagecontroller.h \
+    mainwindow.h \
+    mediawriter.h \
+    writersettings.h \
+    Filters/abstractmorphfilter.h \
+    Filters/MorphFilters/morphdilate.h \
+    Filters/MorphFilters/morpherode.h \
+    Filters/MorphFilters/morphopen.h \
+    Filters/MorphFilters/morphclose.h
 
 FORMS += \
         mainwindow.ui \

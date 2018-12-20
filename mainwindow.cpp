@@ -6,6 +6,7 @@
 
 
 #include "Detectors/LBPDetector/lbpdetector.h"
+#include "Filters/MorphFilters/morphopen.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->writer = MediaWriter();
 
     LBPDetector *a = new LBPDetector("13");
-    a->getPostprocessorRef().getFilters().push_back(new GaussianBlur("3233", 20));
+    a->getPostprocessorRef().getFilters().push_back(new MorphOpen("23", 20, 0));
     this->controller.getFilters().push_back(a);
 
     labelThread = new QTimer(this);
