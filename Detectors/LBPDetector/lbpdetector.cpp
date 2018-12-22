@@ -2,6 +2,7 @@
 
 LBPDetector::LBPDetector(QString detectorName) : AbstractShapeDetector (detectorName)
 {
+    this->indexInComboBox = 0;
     cv::Ptr<cv::CascadeClassifier> cascade = cv::makePtr<cv::CascadeClassifier>(this->defaultPath);
     cv::Ptr<cv::DetectionBasedTracker::IDetector> MainDetector = cv::makePtr<DetectorAdapter::CascadeDetectorAdapter>(cascade);
 

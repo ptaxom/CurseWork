@@ -6,6 +6,12 @@ std::map<int, QString> AbstractMorphFilter::kernelNames = {{0, QString("Квад
                                                            {2, QString("Крестовидное ядро")},
                                                           };
 
+std::map<int, QString> AbstractMorphFilter::filterNames = {{0, QString("Диляция")},
+                                                           {1, QString("Эрозия")},
+                                                           {2, QString("Открытие")},
+                                                           {3, QString("Закрытие")},
+                                                          };
+
 
 AbstractMorphFilter::AbstractMorphFilter(QString filterName, int kernelSize, int kernelType, QString filterType) :
     AbstractFilter (filterName, filterType)

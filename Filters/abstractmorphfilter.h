@@ -24,8 +24,11 @@ protected:
     int kernelType;
     cv::Mat kernel;
 
-private:
+public:
     static std::map<int, QString> kernelNames;
+    static std::map<int, QString> filterNames;
+
+private:
     cv::Mat kernelFactory() const;
 };
 

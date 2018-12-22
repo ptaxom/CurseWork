@@ -24,7 +24,7 @@ class KernelFilterEditor : public QDialog
 
 public:
     explicit KernelFilterEditor(AbstractFilter *filter, std::vector<QString> names, QWidget *parent = nullptr);
-    ~KernelFilterEditor();
+    ~KernelFilterEditor() override;
 
 
     bool isClosed() const;

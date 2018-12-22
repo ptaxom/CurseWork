@@ -83,7 +83,14 @@ SOURCES += \
     Filters/MorphFilters/morphdilate.cpp \
     Filters/MorphFilters/morpherode.cpp \
     Filters/MorphFilters/morphopen.cpp \
-    Filters/MorphFilters/morphclose.cpp
+    Filters/MorphFilters/morphclose.cpp \
+    Detectors/LBPDetector/lbpdetector.cpp \
+    Detectors/abstractshapedetector.cpp \
+    Detectors/LBPDetector/lbpdetector.cpp \
+    Detectors/abstractshapedetector.cpp \
+    Detectors/DetectorControllerForm/dcontroller.cpp \
+    Filters/MorphFilters/MorphFilterEditor/morphfilterform.cpp \
+    Filters/AbstractFilterEditor/abstractfiltereditor.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -138,13 +145,22 @@ HEADERS += \
     Filters/MorphFilters/morphdilate.h \
     Filters/MorphFilters/morpherode.h \
     Filters/MorphFilters/morphopen.h \
-    Filters/MorphFilters/morphclose.h
+    Filters/MorphFilters/morphclose.h \
+    Detectors/LBPDetector/lbpdetector.h \
+    Detectors/abstractshapedetector.h \
+    Detectors/LBPDetector/lbpdetector.h \
+    Detectors/abstractshapedetector.h \
+    Detectors/DetectorControllerForm/dcontroller.h \
+    Filters/MorphFilters/MorphFilterEditor/morphfilterform.h \
+    Filters/AbstractFilterEditor/abstractfiltereditor.h
 
 FORMS += \
         mainwindow.ui \
     writersettings.ui \
     Filters/KernelFilters/kernelfiltereditor.ui \
-    ImageControllerForm/imagecontrollersettings.ui
+    ImageControllerForm/imagecontrollersettings.ui \
+    Detectors/DetectorControllerForm/dcontroller.ui \
+    Filters/MorphFilters/MorphFilterEditor/morphfilterform.ui
 
 
 

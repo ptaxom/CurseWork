@@ -45,7 +45,6 @@ AbstractFilter* KernelFilterEditor::getFilter() const
 bool KernelFilterEditor::isDeclaratedName(const QString &name) const
 {
     return std::find(names.begin(), names.end(), name) != names.end();
-    //return false;
 }
 
 QString KernelFilterEditor::getMatrixLabel(int size) const
