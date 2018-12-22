@@ -94,7 +94,9 @@ SOURCES += \
     Filters/ColorSpaceFilters/negativefilter.cpp \
     Filters/abstractcolorfilter.cpp \
     Filters/ColorSpaceFilters/sepiafilter.cpp \
-    Filters/ColorSpaceFilters/weightedcolorchannelfilter.cpp
+    Filters/ColorSpaceFilters/weightedcolorchannelfilter.cpp \
+    Filters/ColorSpaceFilters/ColorFilterEditor/colorfiltereditor.cpp \
+    Filters/ColorSpaceFilters/grayscalefilter.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -160,7 +162,9 @@ HEADERS += \
     Filters/ColorSpaceFilters/negativefilter.h \
     Filters/abstractcolorfilter.h \
     Filters/ColorSpaceFilters/sepiafilter.h \
-    Filters/ColorSpaceFilters/weightedcolorchannelfilter.h
+    Filters/ColorSpaceFilters/weightedcolorchannelfilter.h \
+    Filters/ColorSpaceFilters/ColorFilterEditor/colorfiltereditor.h \
+    Filters/ColorSpaceFilters/grayscalefilter.h
 
 FORMS += \
         mainwindow.ui \
@@ -168,7 +172,8 @@ FORMS += \
     Filters/KernelFilters/kernelfiltereditor.ui \
     ImageControllerForm/imagecontrollersettings.ui \
     Detectors/DetectorControllerForm/dcontroller.ui \
-    Filters/MorphFilters/MorphFilterEditor/morphfilterform.ui
+    Filters/MorphFilters/MorphFilterEditor/morphfilterform.ui \
+    Filters/ColorSpaceFilters/ColorFilterEditor/colorfiltereditor.ui
 
 
 

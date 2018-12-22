@@ -38,11 +38,10 @@ private slots:
 private:
     Ui::KernelFilterEditor *ui;
 
-public:
-    void resetFields() override;
-
 protected:
     AbstractFilter* getFilterFromFactory() override;
+
+    void resetFields() override;
 
 
 };

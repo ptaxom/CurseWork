@@ -8,13 +8,11 @@ WeightedColorChannelFilter::WeightedColorChannelFilter(QString filterName, doubl
     g(g_),
     b(b_)
 {
-    this->indexInComboBox = 0;
+    this->indexInComboBox = 4;
 }
 
 void WeightedColorChannelFilter::Process(cv::Mat &image) const
 {
-
-
     std::vector<cv::Mat> channels;
     cv::split(image, channels);
     if (!channels.empty()){

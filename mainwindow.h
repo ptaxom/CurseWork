@@ -5,12 +5,10 @@
 #include<QMessageBox>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
-#include <time.h>
 
 #include "camerasource.h"
 #include "imagecontroller.h"
 #include "mediawriter.h"
-#include "facedetector.h"
 #include "ImageControllerForm/imagecontrollersettings.h"
 
 namespace Ui {
@@ -25,7 +23,6 @@ class MainWindow : public QMainWindow
 public slots:
 
     void UpdateLabelImage();
-
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
@@ -53,7 +50,6 @@ private:
     MediaWriter writer;
     ImageController controller;
 
-    Detector::FaceDetector detector;
 
     double frameCaptureTimes = 0;
     int framesCount = 0;

@@ -31,10 +31,9 @@ protected:
 
     void closeEvent(QCloseEvent *event) override;
 
-//Virtual section
-public:
-    virtual void resetFields() {}
 protected:
+    virtual void resetFields() {}
+
     virtual AbstractFilter* getFilterFromFactory()
     {
         throw std::exception("Exception from virtual getFiltetFromFactory()");

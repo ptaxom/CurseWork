@@ -36,10 +36,10 @@ private slots:
 private:
     Ui::MorphFilterForm *ui;
 
-public:
+protected:
+
     void resetFields() override;
 
-protected:
     AbstractFilter* getFilterFromFactory() override;
 };
 
