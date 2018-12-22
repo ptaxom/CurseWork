@@ -113,5 +113,4 @@ AbstractFilter *ImageControllerSettings::genericFilterFactory(AbstractFilter *fi
     editor.exec();
     while(!editor.isClosed());
     return editor.getFilter();
-
 }

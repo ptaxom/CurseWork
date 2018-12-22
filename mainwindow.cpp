@@ -6,7 +6,7 @@
 
 
 #include "Detectors/LBPDetector/lbpdetector.h"
-#include "Filters/MorphFilters/morphopen.h"
+#include "Filters/ColorSpaceFilters/weightedcolorchannelfilter.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -20,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
 //    LBPDetector *a = new LBPDetector("13");
 //    a->getPostprocessorRef().getFilters().push_back(new MorphOpen("23", 20, 0));
 //    this->controller.getFilters().push_back(a);
+
+    this->controller.getFilters().push_back(new WeightedColorChannelFilter("123",-1,-1,-1));
 
     labelThread = new QTimer(this);
     connect(labelThread, SIGNAL(timeout()), this, SLOT(UpdateLabelImage()));
