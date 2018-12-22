@@ -40,7 +40,7 @@ protected:
 
     void resetFields() override;
 
-    AbstractFilter* getFilterFromFactory() override;
+    AbstractFilter *getFilterFromFactory() override;
 };
 
 #endif // MORPHFILTERFORM_H

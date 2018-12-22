@@ -17,12 +17,6 @@ MainWindow::MainWindow(QWidget *parent) :
     this->cSourse = CameraSource(0);
     this->writer = MediaWriter();
 
-//    LBPDetector *a = new LBPDetector("13");
-//    a->getPostprocessorRef().getFilters().push_back(new MorphOpen("23", 20, 0));
-//    this->controller.getFilters().push_back(a);
-
-    this->controller.getFilters().push_back(new WeightedColorChannelFilter("123",-1,-1,-1));
-
     labelThread = new QTimer(this);
     connect(labelThread, SIGNAL(timeout()), this, SLOT(UpdateLabelImage()));
     labelThread->start(15);
@@ -44,8 +38,6 @@ void MainWindow::UpdateLabelImage()
     start = (double)cv::getTickCount();
 
     cv::Mat frame = cSourse.grabCVIMage();
-
-
 
     if (this->writer.isRecordingVideo())
     {
@@ -70,10 +62,10 @@ void MainWindow::UpdateLabelImage()
 
     end = (double)cv::getTickCount();
 
-    frameCaptureTimes += (end - start) / cv::getTickFrequency();
+    frameCaptureTime += (end - start) / cv::getTickFrequency();
     ++framesCount;
 
-    double fps = (double)(framesCount) / frameCaptureTimes;
+    double fps = (double)(framesCount) / frameCaptureTime;
 
     this->fps = (int)fps;
 
@@ -82,6 +74,11 @@ void MainWindow::UpdateLabelImage()
 
     if (framesCount % 2 == 1)
         ui->statusBar->showMessage(QString::fromStdString(fpsBar));
+    if (framesCount > 1000)
+    {
+        framesCount = 0;
+        frameCaptureTime = 0;
+    }
 
 }
 
@@ -95,18 +92,7 @@ QImage MainWindow::convertFromMatToQImage(cv::Mat &mat) {
     } else {
         qDebug() << "in convertOpenCVMatToQtQImage, image was not 1 channel or 3 channel, should never get here";
     }
-    return QImage();        // return a blank QImage if the above did not work
-}
-
-
-
-int MainWindow::checkFPS()
-{
-    if (this->fps > 45)
-        this->fps = 45;
-    if (this->fps < 15)
-        this->fps = 15;
-    return this->fps;
+    return QImage();
 }
 
 
@@ -115,7 +101,7 @@ void MainWindow::on_actVideo_triggered()
     try {
         if (!this->writer.isRecordingVideo() && ui->actVideo->text() == "Начать запись видео")
         {
-            this->writer.startCapture(checkFPS(),this->cSourse.getCaptureSize());
+            this->writer.startCapture(fps,this->cSourse.getCaptureSize());
             ui->actVideo->setText("Остановить запись видео");
             return;
         }
@@ -149,6 +135,5 @@ void MainWindow::on_actWriterSettings_triggered()
 void MainWindow::on_actFilterSettings_triggered()
 {
     ImageControllerSettings window(&this->controller, QString("Настройка фильтров"));
-    window.setModal(true);
     window.exec();
 }

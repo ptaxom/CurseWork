@@ -35,7 +35,7 @@ namespace DetectorAdapter
 class LBPDetector : public AbstractShapeDetector
 {
 public:
-    LBPDetector(QString detectorName);
+    LBPDetector(QString detectorName, ImageController preproc, ImageController postproc);
 
 
     std::vector<cv::Rect>  getShapesBounds(const cv::Mat &image) const override;
@@ -46,7 +46,7 @@ public:
 
 
 private:
-    std::string defaultPath = "D:/Qtproj/CourseWork/data/lbpcascades/lbpcascade_frontalface.xml";
+    std::string defaultPath = "D:/Qtproj/data/lbpcascades/lbpcascade_frontalface.xml";
     cv::DetectionBasedTracker *detector = nullptr;
 };
 

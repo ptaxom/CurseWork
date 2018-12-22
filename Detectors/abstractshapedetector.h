@@ -16,7 +16,9 @@
 class AbstractShapeDetector : public AbstractFilter
 {
 public:
-    AbstractShapeDetector(QString detectorName, QString detectorType = "AbstractDetector");
+    AbstractShapeDetector(QString detectorName,
+                          ImageController preproc,
+                          ImageController postproc);
 
     virtual std::vector<cv::Rect> getShapesBounds(const cv::Mat &image) const
     {

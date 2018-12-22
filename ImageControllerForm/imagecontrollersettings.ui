@@ -63,6 +63,11 @@
          <string>Морфологический фильтр</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Детектор объектов</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>

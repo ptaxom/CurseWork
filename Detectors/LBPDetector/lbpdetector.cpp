@@ -1,6 +1,9 @@
 #include "lbpdetector.h"
 
-LBPDetector::LBPDetector(QString detectorName) : AbstractShapeDetector (detectorName)
+#include <QDebug>
+
+LBPDetector::LBPDetector(QString detectorName, ImageController preproc, ImageController postproc) :
+    AbstractShapeDetector (detectorName, preproc, postproc)
 {
     this->indexInComboBox = 0;
     cv::Ptr<cv::CascadeClassifier> cascade = cv::makePtr<cv::CascadeClassifier>(this->defaultPath);
@@ -11,7 +14,7 @@ LBPDetector::LBPDetector(QString detectorName) : AbstractShapeDetector (detector
     cv::Ptr<cv::DetectionBasedTracker::IDetector> TrackingDetector = cv::makePtr<DetectorAdapter::CascadeDetectorAdapter>(cascade);
         if ( cascade->empty() )
         {
-          throw std::exception("some exception from lbp detector...");
+          throw std::runtime_error("Cann't load cascade in LBPDetector constructor...");
         }
 
         cv::DetectionBasedTracker::Parameters params;
@@ -20,7 +23,8 @@ LBPDetector::LBPDetector(QString detectorName) : AbstractShapeDetector (detector
 
 std::vector<cv::Rect> LBPDetector::getShapesBounds(const cv::Mat &image) const
 {
-    cv::Mat buffer(image);
+    cv::Mat buffer;
+    image.copyTo(buffer);
     this->detectorPreprocessor.ApplyFilters(buffer);
     std::vector<cv::Rect> shapes;
 
@@ -33,7 +37,7 @@ std::vector<cv::Rect> LBPDetector::getShapesBounds(const cv::Mat &image) const
 
 AbstractFilter *LBPDetector::clone() const
 {
-    return new LBPDetector(this->getFilterName());
+    return new LBPDetector(this->getFilterName(), detectorPreprocessor, imagePostprocessor);
 }
 
 LBPDetector::~LBPDetector()

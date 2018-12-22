@@ -44,14 +44,13 @@ private:
     QTimer *labelThread;
 
     QImage convertFromMatToQImage(cv::Mat &image);
-    int checkFPS();
 
     CameraSource cSourse;
     MediaWriter writer;
     ImageController controller;
 
 
-    double frameCaptureTimes = 0;
+    double frameCaptureTime = 0;
     int framesCount = 0;
     int fps = 30;
 

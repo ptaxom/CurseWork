@@ -7,6 +7,7 @@
 #include "../Filters/KernelFilters/kernelfiltereditor.h"
 #include "../Filters/MorphFilters/MorphFilterEditor/morphfilterform.h"
 #include "../Filters/ColorSpaceFilters/ColorFilterEditor/colorfiltereditor.h"
+#include "../Detectors/DetectorControllerForm/dcontroller.h"
 
 namespace Ui {
 class ImageControllerSettings;

@@ -51,10 +51,10 @@ void AbstractFilterEditor::HandleOkButton()
     } catch (const std::runtime_error &ex) {
         QMessageBox::critical(this, "Ошибка", QString::fromStdString(ex.what()));
         this->resetFields();
-        throw std::exception();
+        throw std::exception("handled exception from HandleOkButton");
     }
     catch(...) {
-        throw std::exception();
+        throw std::exception("unhandled exception from HandleOkButton");
     }
 }
 

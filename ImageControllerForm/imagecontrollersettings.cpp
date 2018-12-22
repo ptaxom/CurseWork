@@ -55,6 +55,7 @@ void ImageControllerSettings::on_btnAdd_clicked()
     case 0: filter = genericFilterFactory<KernelFilterEditor>(); break;
     case 1: filter = genericFilterFactory<ColorFilterEditor>(); break;
     case 2: filter = genericFilterFactory<MorphFilterForm>(); break;
+    case 3: filter = genericFilterFactory<DController>(); break;
     }
     if (filter)
         bufferController.getFilters().push_back(filter);
@@ -99,7 +100,8 @@ void ImageControllerSettings::on_listFilters_doubleClicked(const QModelIndex &in
         editedFilter = genericFilterFactory<MorphFilterForm>(editedFilter);
     if (filterType == "AbstractColorFilter")
         editedFilter = genericFilterFactory<ColorFilterEditor>(editedFilter);
-
+    if (filterType == "AbstractShapeDetector")
+        editedFilter = genericFilterFactory<DController>(editedFilter);
 
     if (editedFilter)
         bufferController.getFilters()[index.row()] = editedFilter;

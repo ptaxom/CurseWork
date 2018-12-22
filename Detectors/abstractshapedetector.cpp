@@ -1,7 +1,12 @@
 #include "abstractshapedetector.h"
 
-AbstractShapeDetector::AbstractShapeDetector(QString detectorName, QString detectorType) :
-    AbstractFilter (detectorName, detectorType)
+AbstractShapeDetector:: AbstractShapeDetector(QString detectorName,
+                                              ImageController preproc_,
+                                              ImageController postproc_
+                                              ) :
+    AbstractFilter (detectorName, "AbstractShapeDetector"),
+    detectorPreprocessor(preproc_),
+    imagePostprocessor(postproc_)
 {
 
 }

@@ -72,8 +72,8 @@ AbstractFilter *MorphFilterForm::getFilterFromFactory()
     switch (ui->cmbFilterType->currentIndex()) {
     case 0: changedFilter =  new MorphDilate(name, kernelSize, kernelType); break;
     case 1: changedFilter =  new MorphErode(name, kernelSize, kernelType); break;
-    case 2: changedFilter =  new MorphClose(name, kernelSize, kernelType); break;
-    case 3: changedFilter =  new MorphOpen(name, kernelSize, kernelType); break;
+    case 3: changedFilter =  new MorphClose(name, kernelSize, kernelType); break;
+    case 2: changedFilter =  new MorphOpen(name, kernelSize, kernelType); break;
     }
     return changedFilter;
 }
