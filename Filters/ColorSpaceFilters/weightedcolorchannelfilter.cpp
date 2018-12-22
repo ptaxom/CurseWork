@@ -28,3 +28,18 @@ AbstractFilter *WeightedColorChannelFilter::clone() const
 {
     return new WeightedColorChannelFilter(this->getFilterName(),r,g,b);
 }
+
+double WeightedColorChannelFilter::getR() const
+{
+    return r;
+}
+
+double WeightedColorChannelFilter::getG() const
+{
+    return g;
+}
+
+double WeightedColorChannelFilter::getB() const
+{
+    return b;
+}

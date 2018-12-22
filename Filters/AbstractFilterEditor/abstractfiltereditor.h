@@ -4,6 +4,7 @@
 
 #include <QDialog>
 #include <QMessageBox>
+#include <QKeyEvent>
 #include "../abstractfilter.h"
 
 class AbstractFilterEditor : public QDialog
@@ -30,6 +31,8 @@ protected:
     void HandleOkButton();
 
     void closeEvent(QCloseEvent *event) override;
+
+    void keyPressEvent(QKeyEvent *e) override;
 
 protected:
     virtual void resetFields() {}

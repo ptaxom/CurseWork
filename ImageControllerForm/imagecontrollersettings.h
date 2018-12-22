@@ -3,8 +3,10 @@
 
 #include <QDialog>
 #include "../imagecontroller.h"
+
 #include "../Filters/KernelFilters/kernelfiltereditor.h"
 #include "../Filters/MorphFilters/MorphFilterEditor/morphfilterform.h"
+#include "../Filters/ColorSpaceFilters/ColorFilterEditor/colorfiltereditor.h"
 
 namespace Ui {
 class ImageControllerSettings;

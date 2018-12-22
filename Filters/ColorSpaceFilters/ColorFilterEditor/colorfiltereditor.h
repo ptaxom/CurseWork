@@ -3,6 +3,13 @@
 
 #include "../../AbstractFilterEditor/abstractfiltereditor.h"
 
+#include "../grayscalefilter.h"
+#include "../sepiafilter.h"
+#include "../negativefilter.h"
+#include "../weightedcolorchannelfilter.h"
+
+#include <cmath>
+
 namespace Ui {
 class ColorFilterEditor;
 }
@@ -22,13 +29,31 @@ private slots:
 
     void on_btnCancel_clicked();
 
+    void on_hslR_valueChanged(int value);
+
+    void on_hslG_valueChanged(int value);
+
+    void on_hslB_valueChanged(int value);
+
+    void on_hslR_sliderReleased();
+
+    void on_hslG_sliderReleased();
+
+    void on_hslB_sliderReleased();
+
 private:
     Ui::ColorFilterEditor *ui;
+
+    double getDecodedValue(int val) const;
+    int getEncodedValue(double val) const;
+
+    QString ColorFilterEditor::getFormattedDescription(QString color,QString var, double val) const;
 
 protected:
     void resetFields() override;
 
     AbstractFilter* getFilterFromFactory() override;
+
 
 };
 

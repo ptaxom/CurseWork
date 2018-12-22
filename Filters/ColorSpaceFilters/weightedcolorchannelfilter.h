@@ -12,6 +12,10 @@ public:
     void Process(cv::Mat &image) const override;
     AbstractFilter* clone() const override;
 
+    double getR() const;
+    double getG() const;
+    double getB() const;
+
 private:
     double r;
     double g;

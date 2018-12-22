@@ -7,7 +7,7 @@ cv::Mat_<float> SepiaFilter::kernel = (cv::Mat_<float>(4,4) <<  0.272, 0.534, 0.
 
 SepiaFilter::SepiaFilter(QString filterName) : AbstractColorFilter (filterName)
 {
-    this->indexInComboBox = 1;
+    this->indexInComboBox = -1;
 }
 
 void SepiaFilter::Process(cv::Mat &image) const

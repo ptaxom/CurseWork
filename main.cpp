@@ -9,22 +9,12 @@
 
 //Иконки и фикс багов
 
-#include <QDebug>
-
-#include <opencv2/core.hpp>
-
-#include "Filters/ColorSpaceFilters/ColorFilterEditor/colorfiltereditor.h"
 int main(int argc, char *argv[])
 {
 
 
     QApplication a(argc, argv);
-//    MainWindow w;
-//    w.show();
-    std::vector<QString> aa = {"13"};
-
-    ColorFilterEditor fff(nullptr,aa);
-    fff.show();
-
+    MainWindow w;
+    w.show();
     return a.exec();
 }

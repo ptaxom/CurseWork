@@ -64,6 +64,19 @@ void AbstractFilterEditor::closeEvent(QCloseEvent *event)
     this->isClose = true;
 }
 
+void AbstractFilterEditor::keyPressEvent(QKeyEvent *e)
+{
+    if(e->key() != Qt::Key_Escape)
+           QDialog::keyPressEvent(e);
+    else
+    {
+        this->isClose = true;
+        this->close();
+    }
+
+}
+
+
 /*
 
   Code to Copy-Paste

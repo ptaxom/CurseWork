@@ -12,9 +12,6 @@ ImageControllerSettings::ImageControllerSettings(ImageController *ctrl,QString w
     this->controller = ctrl;
     this->bufferController = *this->controller;
 
-
-   //ui->listFilters->setSelectionMode(QAbstractItemView::SingleSelection);
-
     this->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
     this->setFocus();
 
@@ -56,6 +53,7 @@ void ImageControllerSettings::on_btnAdd_clicked()
     AbstractFilter *filter = nullptr;
     switch (currentIndex) {
     case 0: filter = genericFilterFactory<KernelFilterEditor>(); break;
+    case 1: filter = genericFilterFactory<ColorFilterEditor>(); break;
     case 2: filter = genericFilterFactory<MorphFilterForm>(); break;
     }
     if (filter)
@@ -95,11 +93,13 @@ void ImageControllerSettings::on_listFilters_doubleClicked(const QModelIndex &in
     AbstractFilter* editedFilter = bufferController.getFilters()[index.row()];
     QString filterType = editedFilter->getFilterType();
 
-    qDebug() << filterType << "\n";
     if (filterType == "AbstractKernelFilter")
         editedFilter = genericFilterFactory<KernelFilterEditor>(editedFilter);
     if (filterType == "AbstractMorphFilter")
         editedFilter = genericFilterFactory<MorphFilterForm>(editedFilter);
+    if (filterType == "AbstractColorFilter")
+        editedFilter = genericFilterFactory<ColorFilterEditor>(editedFilter);
+
 
     if (editedFilter)
         bufferController.getFilters()[index.row()] = editedFilter;
