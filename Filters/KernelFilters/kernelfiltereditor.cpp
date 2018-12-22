@@ -3,28 +3,11 @@
 
 
 KernelFilterEditor::KernelFilterEditor(AbstractFilter *filter_, std::vector<QString> names_, QWidget *parent):
-    QDialog(parent),
-    ui(new Ui::KernelFilterEditor),
-    filter(filter_),
-    names(names_),
-    isClose(false)
+    AbstractFilterEditor (filter_, names_, parent),
+    ui(new Ui::KernelFilterEditor)
 {
     ui->setupUi(this);
-    if (filter == nullptr)
-    {
-        ui->lblName->setText("Добавление нового фильтра");
-        ui->lblMatrixSize->setText(getMatrixLabel(1));
-    }
-    else {
-        ui->lblName->setText("Редактирование фильтра " + filter->getFilterName());
-        ui->lineEdit->setText(filter->getFilterName());
-        ui->comboBox->setCurrentIndex(filter->getIndex());
-        ui->horizontalSlider->setValue(
-                    dynamic_cast<AbstractKernelFilter*>(filter)
-                    ->getKernelSize() );
-        ui->lblMatrixSize->setText(getMatrixLabel(ui->horizontalSlider->value()));
-    }
-
+    resetFields();
 }
 
 KernelFilterEditor::~KernelFilterEditor()
@@ -32,45 +15,19 @@ KernelFilterEditor::~KernelFilterEditor()
     delete ui;
 }
 
-bool KernelFilterEditor::isClosed() const
-{
-    return this->isClose;
-}
-
-AbstractFilter* KernelFilterEditor::getFilter() const
-{
-    return this->filter;
-}
-
-bool KernelFilterEditor::isDeclaratedName(const QString &name) const
-{
-    return std::find(names.begin(), names.end(), name) != names.end();
-}
-
-QString KernelFilterEditor::getMatrixLabel(int size) const
-{
-    std::string tSize = std::to_string(size * 2 + 1);
-    return QString::fromStdString(std::string("Матрица ") + tSize + "x" + tSize);
-}
-
 AbstractFilter* KernelFilterEditor::getFilterFromFactory()
 {
     AbstractFilter* changedFilter = nullptr;
     QString name = ui->lineEdit->text();
-    if (name.isEmpty())
-        throw std::runtime_error("Название фильтра не может быть пустым!");
-    if (isDeclaratedName(name) && this->filter == nullptr)
-        throw std::runtime_error("Фильтр" + std::string(name.toLocal8Bit().constData()) + "уже существует!");
+
+    checkNameCorrectness(name);
+    int index = ui->horizontalSlider->value();
+
     switch (ui->comboBox->currentIndex()) {
-    case 0: changedFilter =  new GaussianBlur(name, ui->horizontalSlider->value()); break;
-    case 1: changedFilter =  new MedianBlur(name, ui->horizontalSlider->value()); break;
+    case 0: changedFilter =  new GaussianBlur(name, index); break;
+    case 1: changedFilter =  new MedianBlur(name, index); break;
     }
     return changedFilter;
-}
-
-void KernelFilterEditor::closeEvent(QCloseEvent *event)
-{
-    this->isClose = true;
 }
 
 void KernelFilterEditor::on_btnCancel_clicked()
@@ -82,13 +39,8 @@ void KernelFilterEditor::on_btnCancel_clicked()
 void KernelFilterEditor::on_btnOk_clicked()
 {
     try {
-        AbstractFilter* newFilter = getFilterFromFactory();
-        if (this->filter != nullptr)
-            delete this->filter;
-        this->filter = newFilter;
-    } catch (const std::runtime_error &ex) {
-        QMessageBox::critical(this, "Ошибка", QString::fromStdString(ex.what()));
-        ui->lineEdit->setText("");
+       this->HandleOkButton();
+    } catch (const std::exception &ex) {
         return;
     }
     this->isClose = true;
@@ -104,4 +56,22 @@ void KernelFilterEditor::on_horizontalSlider_valueChanged(int value)
 void KernelFilterEditor::on_horizontalSlider_sliderReleased()
 {
     ui->lblMatrixSize->setText(getMatrixLabel(ui->horizontalSlider->value()));
+}
+
+void KernelFilterEditor::resetFields()
+{
+    if (filter == nullptr)
+    {
+        ui->lblName->setText("Добавление нового фильтра");
+        ui->lblMatrixSize->setText(getMatrixLabel(1));
+    }
+    else {
+        ui->lblName->setText("Редактирование фильтра " + filter->getFilterName());
+        ui->lineEdit->setText(filter->getFilterName());
+        ui->comboBox->setCurrentIndex(filter->getIndex());
+        ui->horizontalSlider->setValue(
+                    dynamic_cast<AbstractKernelFilter*>(filter)
+                    ->getKernelSize() );
+        ui->lblMatrixSize->setText(getMatrixLabel(ui->horizontalSlider->value()));
+    }
 }

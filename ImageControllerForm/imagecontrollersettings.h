@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "../imagecontroller.h"
 #include "../Filters/KernelFilters/kernelfiltereditor.h"
+#include "../Filters/MorphFilters/MorphFilterEditor/morphfilterform.h"
 
 namespace Ui {
 class ImageControllerSettings;
@@ -34,6 +35,9 @@ private:
     Ui::ImageControllerSettings *ui;
     ImageController *controller;
     ImageController bufferController;
+
+    template<class T>
+    AbstractFilter *genericFilterFactory(AbstractFilter *filter = nullptr);
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;

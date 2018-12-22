@@ -20,13 +20,9 @@ int main(int argc, char *argv[])
 
 
     QApplication a(argc, argv);
-//    MainWindow w;
-//    w.show();
+    MainWindow w;
+    w.show();
 
-        AbstractFilter *f = nullptr;
-        std::vector<QString> nn = {"123", "432"};
-        MorphFilterForm form(f,nn);
-        form.show();
 
 //    ImageController b;
 //    ImageControllerEditor c(&b);

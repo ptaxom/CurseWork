@@ -48,21 +48,18 @@ std::vector<QString> ImageControllerSettings::getDeclaratedNames() const
     return names;
 }
 
-#include <QDebug>
 
 
 void ImageControllerSettings::on_btnAdd_clicked()
 {
-    if (ui->comboBox->currentIndex() == 0)
-    {
-        KernelFilterEditor editor(nullptr,getDeclaratedNames());
-        editor.setModal(true);
-        editor.exec();
-        while (!editor.isClosed());
-        AbstractFilter* filter = editor.getFilter();
-        if (filter)
-            bufferController.getFilters().push_back(filter);
+    int currentIndex = ui->comboBox->currentIndex();
+    AbstractFilter *filter = nullptr;
+    switch (currentIndex) {
+    case 0: filter = genericFilterFactory<KernelFilterEditor>(); break;
+    case 2: filter = genericFilterFactory<MorphFilterForm>(); break;
     }
+    if (filter)
+        bufferController.getFilters().push_back(filter);
     fillListView();
 }
 
@@ -83,7 +80,8 @@ void ImageControllerSettings::on_btnDelete_clicked()
     if (indexToDelete != -1)
     {
         QMessageBox::StandardButton reply;
-          reply = QMessageBox::question(this, "Подтверждение действия", "Вы действительно хотите удалить фильтр " + ui->listFilters->currentItem()->text() + "?",
+          reply = QMessageBox::question(this, "Подтверждение действия", "Вы действительно хотите удалить фильтр " +
+                                        ui->listFilters->currentItem()->text() + "?",
                                         QMessageBox::Yes|QMessageBox::No);
           if (reply == QMessageBox::Yes) {
               bufferController.getFilters().erase(bufferController.getFilters().begin() + indexToDelete);
@@ -95,14 +93,25 @@ void ImageControllerSettings::on_btnDelete_clicked()
 void ImageControllerSettings::on_listFilters_doubleClicked(const QModelIndex &index)
 {
     AbstractFilter* editedFilter = bufferController.getFilters()[index.row()];
-    if (editedFilter->getFilterType() == "AbstractKernelFilter")
-    {
-        KernelFilterEditor editor(editedFilter,getDeclaratedNames());
-        editor.setModal(true);
-        editor.exec();
-        while (!editor.isClosed());
-        bufferController.getFilters()[index.row()] = editor.getFilter();
+    QString filterType = editedFilter->getFilterType();
 
-    }
+    qDebug() << filterType << "\n";
+    if (filterType == "AbstractKernelFilter")
+        editedFilter = genericFilterFactory<KernelFilterEditor>(editedFilter);
+    if (filterType == "AbstractMorphFilter")
+        editedFilter = genericFilterFactory<MorphFilterForm>(editedFilter);
+
+    if (editedFilter)
+        bufferController.getFilters()[index.row()] = editedFilter;
     fillListView();
+}
+
+template<class T>
+AbstractFilter *ImageControllerSettings::genericFilterFactory(AbstractFilter *filter)
+{
+    T editor(filter, getDeclaratedNames());
+    editor.exec();
+    while(!editor.isClosed());
+    return editor.getFilter();
+
 }

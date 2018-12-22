@@ -17,9 +17,9 @@ MainWindow::MainWindow(QWidget *parent) :
     this->cSourse = CameraSource(0);
     this->writer = MediaWriter();
 
-    LBPDetector *a = new LBPDetector("13");
-    a->getPostprocessorRef().getFilters().push_back(new MorphOpen("23", 20, 0));
-    this->controller.getFilters().push_back(a);
+//    LBPDetector *a = new LBPDetector("13");
+//    a->getPostprocessorRef().getFilters().push_back(new MorphOpen("23", 20, 0));
+//    this->controller.getFilters().push_back(a);
 
     labelThread = new QTimer(this);
     connect(labelThread, SIGNAL(timeout()), this, SLOT(UpdateLabelImage()));
