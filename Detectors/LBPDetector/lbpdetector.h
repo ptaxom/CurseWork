@@ -46,7 +46,7 @@ public:
 
 
 private:
-    std::string defaultPath = "D:/Qtproj/data/lbpcascades/lbpcascade_frontalface.xml";
+    std::string defaultPath = "../data/lbpcascades/lbpcascade_frontalface.xml"; //"D:/Qtproj/data/lbpcascades/lbpcascade_frontalface.xml"
     cv::DetectionBasedTracker *detector = nullptr;
 };
 

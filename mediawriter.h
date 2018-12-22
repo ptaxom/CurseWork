@@ -7,7 +7,7 @@
 #include <opencv2/opencv.hpp>
 
 namespace Writer {
-    const std::string defaultPath = "D://Qtproj";
+    const std::string defaultPath = "../data";
 }
 
 

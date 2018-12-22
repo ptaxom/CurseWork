@@ -20,8 +20,7 @@ void MediaWriter::startCapture(int fps, const cv::Size &size)
 {
     if (this->writer != nullptr)
         throw std::runtime_error("You cann't record more than one media!");
-    //std::string p = path+"//"+getMediaName()+".avi";
-    std::string p = "11.avi";
+    std::string p = path+"/"+getMediaName()+".avi";
     if (usePreferredFPS)
         fps = this->preferredFPS;
     this->spf = 1 / (double)fps;
@@ -37,7 +36,6 @@ void MediaWriter::addFrame(const cv::Mat &frame)
     double timeFromLastFrame = (t2 - this->lastCapture) / cv::getTickFrequency();
     if (timeFromLastFrame >= this->spf)
     {
-        std::cout << timeFromLastFrame << " " << this->spf << "\n";
         this->lastCapture = t2;
         cv::Mat frameToWrite;
         cv::cvtColor(frame, frameToWrite, CV_BGR2RGB);
@@ -69,9 +67,7 @@ void MediaWriter::ReleaseVideoCapture()
 #include <time.h>
 void MediaWriter::makePhoto(const cv::Mat &frame)
 {
-    std::string p = path + "//" + getMediaName() + ".jpg";
-    std::cout << p << std::endl;
-    p = "1.jpg";
+    std::string p = path + "/" + getMediaName() + ".jpg";
     cv::Mat frameToWrite;
     cv::cvtColor(frame, frameToWrite, CV_BGR2RGB);
     cv::imwrite(p, frameToWrite);
