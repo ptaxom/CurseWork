@@ -30,27 +30,22 @@ SOURCES += \
     camerasource.cpp \
     mediawriter.cpp \
     writersettings.cpp \
-    facedetector.cpp \
     camerasource.cpp \
-    facedetector.cpp \
     main.cpp \
     mainwindow.cpp \
     mediawriter.cpp \
     writersettings.cpp \
     camerasource.cpp \
-    facedetector.cpp \
     main.cpp \
     mainwindow.cpp \
     mediawriter.cpp \
     writersettings.cpp \
     camerasource.cpp \
-    facedetector.cpp \
     main.cpp \
     mainwindow.cpp \
     mediawriter.cpp \
     writersettings.cpp \
     camerasource.cpp \
-    facedetector.cpp \
     main.cpp \
     mainwindow.cpp \
     mediawriter.cpp \
@@ -73,7 +68,6 @@ SOURCES += \
     Filters/abstractkernelfilter.cpp \
     ImageControllerForm/imagecontrollersettings.cpp \
     camerasource.cpp \
-    facedetector.cpp \
     imagecontroller.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -96,31 +90,27 @@ SOURCES += \
     Filters/ColorSpaceFilters/sepiafilter.cpp \
     Filters/ColorSpaceFilters/weightedcolorchannelfilter.cpp \
     Filters/ColorSpaceFilters/ColorFilterEditor/colorfiltereditor.cpp \
-    Filters/ColorSpaceFilters/grayscalefilter.cpp
+    Filters/ColorSpaceFilters/grayscalefilter.cpp \
+    Utils/applicationprocessor.cpp
 
 HEADERS += \
         mainwindow.h \
     camerasource.h \
     mediawriter.h \
     writersettings.h \
-    facedetector.h \
     camerasource.h \
-    facedetector.h \
     mainwindow.h \
     mediawriter.h \
     writersettings.h \
     camerasource.h \
-    facedetector.h \
     mainwindow.h \
     mediawriter.h \
     writersettings.h \
     camerasource.h \
-    facedetector.h \
     mainwindow.h \
     mediawriter.h \
     writersettings.h \
     camerasource.h \
-    facedetector.h \
     mainwindow.h \
     mediawriter.h \
     writersettings.h \
@@ -142,7 +132,6 @@ HEADERS += \
     Filters/abstractkernelfilter.h \
     ImageControllerForm/imagecontrollersettings.h \
     camerasource.h \
-    facedetector.h \
     imagecontroller.h \
     mainwindow.h \
     mediawriter.h \
@@ -164,7 +153,8 @@ HEADERS += \
     Filters/ColorSpaceFilters/sepiafilter.h \
     Filters/ColorSpaceFilters/weightedcolorchannelfilter.h \
     Filters/ColorSpaceFilters/ColorFilterEditor/colorfiltereditor.h \
-    Filters/ColorSpaceFilters/grayscalefilter.h
+    Filters/ColorSpaceFilters/grayscalefilter.h \
+    Utils/applicationprocessor.h
 
 FORMS += \
         mainwindow.ui \
@@ -181,6 +171,8 @@ INCLUDEPATH += C:/opencv2/opencv/build/include
 DEPENDPATH += C:/opencv2/opencv/build/include
 
 LIBS += -LC:/opencv2/myBuild/lib/debug/ -lopencv_imgcodecs344d -lopencv_imgproc344d -lopencv_ml344d -lopencv_objdetect344d -lopencv_photo344d -lopencv_shape344d -lopencv_stitching344d -lopencv_superres344d -lopencv_ts344d -lopencv_video344d -lopencv_videoio344d -lopencv_videostab344d -lopencv_calib3d344d -lopencv_core344d -lopencv_features2d344d -lopencv_flann344d -lopencv_highgui344d
+
+#LIBS += -L../libs/ -lopencv_imgcodecs344d -lopencv_imgproc344d -lopencv_ml344d -lopencv_objdetect344d -lopencv_photo344d -lopencv_shape344d -lopencv_stitching344d -lopencv_superres344d -lopencv_ts344d -lopencv_video344d -lopencv_videoio344d -lopencv_videostab344d -lopencv_calib3d344d -lopencv_core344d -lopencv_features2d344d -lopencv_flann344d -lopencv_highgui344d
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

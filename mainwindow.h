@@ -3,13 +3,9 @@
 
 #include <QMainWindow>
 #include<QMessageBox>
-#include <opencv2/highgui.hpp>
-#include <opencv2/imgproc.hpp>
 
-#include "camerasource.h"
-#include "imagecontroller.h"
-#include "mediawriter.h"
 #include "ImageControllerForm/imagecontrollersettings.h"
+#include "Utils/applicationprocessor.h"
 
 namespace Ui {
 class MainWindow;
@@ -43,16 +39,8 @@ private:
 
     QTimer *labelThread;
 
-    QImage convertFromMatToQImage(cv::Mat &image);
+    ApplicationProcessor processor;
 
-    CameraSource cSourse;
-    MediaWriter writer;
-    ImageController controller;
-
-
-    double frameCaptureTime = 0;
-    int framesCount = 0;
-    int fps = 30;
 
 };
 

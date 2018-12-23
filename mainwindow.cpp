@@ -14,8 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    this->cSourse = CameraSource(0);
-    this->writer = MediaWriter();
+    processor = ApplicationProcessor();
 
     labelThread = new QTimer(this);
     connect(labelThread, SIGNAL(timeout()), this, SLOT(UpdateLabelImage()));
@@ -26,114 +25,72 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    if (this->writer.isRecordingVideo())
-        this->writer.endCapture();
+    if (processor.getWriter().isRecordingVideo())
+        this->processor.getWriter().endCapture();
     delete ui;
 }
 
 
 void MainWindow::UpdateLabelImage()
 {
-    double start, end;
-    start = (double)cv::getTickCount();
-
-    cv::Mat frame = cSourse.grabCVIMage();
-
-    if (this->writer.isRecordingVideo())
-    {
-        this->writer.addFrame(frame);
-        cv::circle(frame,cv::Point(30,30),10,cv::Scalar(0,0,255),-1);
-    }
-
-
-
-
-
-    this->controller.ApplyFilters(frame);
-
-    QImage img = convertFromMatToQImage(frame);
-
-    QPixmap pix = QPixmap::fromImage(img);
 
     int w = ui->label->width();
     int h = ui->label->height();
 
-    ui->label->setPixmap(pix.scaled(w,h));
+    ui->label->setPixmap(processor.getNextFrame(w,h));
 
-    end = (double)cv::getTickCount();
-
-    frameCaptureTime += (end - start) / cv::getTickFrequency();
-    ++framesCount;
-
-    double fps = (double)(framesCount) / frameCaptureTime;
-
-    this->fps = (int)fps;
-
-    std::string fpsBar = "FPS: " + std::to_string(fps);
-    //fpsBar = fpsBar.substr(0,std::to_string((int)fps).length()+7);
-
-    if (framesCount % 2 == 1)
-        ui->statusBar->showMessage(QString::fromStdString(fpsBar));
-    if (framesCount > 1000)
-    {
-        framesCount = 0;
-        frameCaptureTime = 0;
-    }
+    QString fpsBar = "FPS: " + QString::number(processor.getFPS());
+    ui->statusBar->showMessage(fpsBar);
 
 }
 
-
-QImage MainWindow::convertFromMatToQImage(cv::Mat &mat) {
-    if(mat.channels() == 1) {
-        return QImage((uchar*)mat.data, mat.cols, mat.rows, mat.step, QImage::Format_Indexed8);
-    } else if(mat.channels() == 3) {
-        cv::cvtColor(mat, mat, CV_BGR2RGB);
-        return QImage((uchar*)mat.data, mat.cols, mat.rows, mat.step, QImage::Format_RGB888);
-    } else {
-        qDebug() << "in convertOpenCVMatToQtQImage, image was not 1 channel or 3 channel, should never get here";
-    }
-    return QImage();
-}
 
 
 void MainWindow::on_actVideo_triggered()
 {
     try {
-        if (!this->writer.isRecordingVideo() && ui->actVideo->text() == "Начать запись видео")
+        if (!processor.getWriter().isRecordingVideo() && ui->actVideo->text() == "Начать запись видео")
         {
-            this->writer.startCapture(fps,this->cSourse.getCaptureSize());
+            processor.getWriter().startCapture(processor.getFPS(),processor.getCamera().getCaptureSize());
             ui->actVideo->setText("Остановить запись видео");
             return;
         }
-        if (this->writer.isRecordingVideo() && ui->actVideo->text() == "Остановить запись видео")
+        if (processor.getWriter().isRecordingVideo() && ui->actVideo->text() == "Остановить запись видео")
         {
-            this->writer.endCapture();
+            processor.getWriter().endCapture();
             ui->actVideo->setText("Начать запись видео");
             return;
         }
         throw std::runtime_error("Unknown error...");
     } catch (const std::runtime_error &ex) {
-        this->writer.ReleaseVideoCapture();
-        QMessageBox::critical(this,"Ошибка видео", ex.what());
+        processor.getWriter().ReleaseVideoCapture();
+        QMessageBox::critical(this,"Ошибка видеозаписи", ex.what());
     }
 }
 
 void MainWindow::on_actPhoto_triggered()
 {
-    this->writer.makePhoto(this->cSourse.getLastFrame());
+    cv::Mat lastFrame = processor.getCamera().getLastFrame();
+    if (processor.getWriter().isRecordProcessedImage())
+    {
+        cv::Mat buffer;
+        lastFrame.copyTo(buffer);
+        processor.getController().ApplyFilters(buffer);
+        processor.getWriter().makePhoto(buffer);
+    }
+    else processor.getWriter().makePhoto(lastFrame);
 }
 
 void MainWindow::on_actWriterSettings_triggered()
 {
     writerSettings window;
-    window.initSettings(&this->writer);
-    window.setModal(true);
+    window.initSettings(&processor.getWriter());
     window.exec();
 }
 
 
 void MainWindow::on_actFilterSettings_triggered()
 {
-    ImageControllerSettings window(&this->controller, QString("Настройка фильтров"));
+    ImageControllerSettings window(&processor.getController(), QString("Настройка фильтров"));
     window.exec();
 }

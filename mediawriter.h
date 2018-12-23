@@ -3,11 +3,13 @@
 
 #include <string>
 #include <camerasource.h>
+#include <time.h>
 #include <QDateTime>
 #include <opencv2/opencv.hpp>
+#include "opencv2/videoio.hpp"
 
 namespace Writer {
-    const std::string defaultPath = "../data";
+    const std::string defaultPath = "";
 }
 
 
@@ -27,6 +29,7 @@ public:
     void makePhoto(const cv::Mat &frame);
 
     bool isRecordingVideo() const;
+    bool isRecordProcessedImage() const;
 
     int getPreferredFPS() const;
     bool getUsePreferredFPS() const;
@@ -35,6 +38,9 @@ public:
     void setPreferredFPS(int fps);
     void setUsePreferredFPS(bool use);
     void setPath(std::string path);
+    void setRecordProcessedImage(bool record);
+
+
 
 private:
 
@@ -42,6 +48,8 @@ private:
     cv::VideoWriter *writer = nullptr;
 
     std::string getMediaName() const;
+
+    bool recordProcessedImage;
 
     bool usePreferredFPS = false;
     int preferredFPS = 30;

@@ -20,13 +20,15 @@ void MediaWriter::startCapture(int fps, const cv::Size &size)
 {
     if (this->writer != nullptr)
         throw std::runtime_error("You cann't record more than one media!");
-    std::string p = path+"/"+getMediaName()+".avi";
+    std::string p = path  + getMediaName() + ".avi";
     if (usePreferredFPS)
         fps = this->preferredFPS;
     this->spf = 1 / (double)fps;
     this->lastCapture = (double)cv::getTickCount();
-    this->writer = new cv::VideoWriter(p, CV_FOURCC('M','J','P','G'), fps, size, true);
+    this->writer = new cv::VideoWriter(p, CV_FOURCC('M','J','P','G'), fps-5, size, true);
 }
+
+#include <algorithm>
 
 void MediaWriter::addFrame(const cv::Mat &frame)
 {
@@ -39,6 +41,13 @@ void MediaWriter::addFrame(const cv::Mat &frame)
         this->lastCapture = t2;
         cv::Mat frameToWrite;
         cv::cvtColor(frame, frameToWrite, CV_BGR2RGB);
+        for(int i = 0; i < frameToWrite.rows; i++)
+            for(int j = 0; j < frameToWrite.cols; j++)
+            {
+                std::swap(frameToWrite.at<cv::Vec3b>(i,j)[0],
+                        frameToWrite.at<cv::Vec3b>(i,j)[2]);
+            }
+
         this->writer->write(frameToWrite);
     }
 }
@@ -63,11 +72,10 @@ void MediaWriter::ReleaseVideoCapture()
 }
 
 
-#include <iostream>
-#include <time.h>
+
 void MediaWriter::makePhoto(const cv::Mat &frame)
 {
-    std::string p = path + "/" + getMediaName() + ".jpg";
+    std::string p = path  + getMediaName() + ".jpg";
     cv::Mat frameToWrite;
     cv::cvtColor(frame, frameToWrite, CV_BGR2RGB);
     cv::imwrite(p, frameToWrite);
@@ -76,6 +84,11 @@ void MediaWriter::makePhoto(const cv::Mat &frame)
 bool MediaWriter::isRecordingVideo() const
 {
     return this->writer != nullptr;
+}
+
+bool MediaWriter::isRecordProcessedImage() const
+{
+    return this->recordProcessedImage;
 }
 
 int MediaWriter::getPreferredFPS() const
@@ -108,9 +121,15 @@ void MediaWriter::setPath(std::string path_)
     this->path = path_;
 }
 
+void MediaWriter::setRecordProcessedImage(bool record)
+{
+    this->recordProcessedImage = record;
+}
+
 std::string MediaWriter::getMediaName() const
 {
     time_t t;
     time(&t);
-    return QDateTime::currentDateTime().toString(Qt::ISODate).toLocal8Bit().constData() + std::string("_") + std::to_string(t % 1000);
+    //return QDateTime::currentDateTime().toString(Qt::ISODate).toLocal8Bit().constData() + std::string("_") + std::to_string(t % 1000);
+    return std::to_string(t);
 }

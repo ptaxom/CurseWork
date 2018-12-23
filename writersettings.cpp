@@ -20,19 +20,21 @@ writerSettings::~writerSettings()
 void writerSettings::initSettings(MediaWriter *settings_)
 {
     if (settings_ == nullptr)
-        throw std::runtime_error("ex");
+        throw std::runtime_error("exception from mediawriter settings");
     this->settings = settings_;
-    ui->spbPrefferedFPS->setRange(15, 45);
+    ui->spbPrefferedFPS->setRange(10, 45);
     ui->spbPrefferedFPS->setValue(settings->getPreferredFPS());
     ui->cbUsePreferredFPS->setChecked(settings->getUsePreferredFPS());
+    ui->cbRecordProcessedImage->setChecked(settings->isRecordProcessedImage());
 }
 
 void writerSettings::on_btnConfirm_clicked()
 {
     settings->setPreferredFPS(ui->spbPrefferedFPS->value());
     settings->setUsePreferredFPS(ui->cbUsePreferredFPS->checkState() == Qt::Checked);
+    settings->setRecordProcessedImage(ui->cbRecordProcessedImage->checkState() == Qt::Checked);
     if (!path.empty())
-        settings->setPath(path);
+        settings->setPath(path+"/");
     this->close();
 }
 
