@@ -15,6 +15,8 @@ public:
     ImageController(const ImageController &other);
     ImageController& operator=(const ImageController &other);
 
+    ImageController& operator=(const ImageController &&other) = delete;
+
     void ApplyFilters(cv::Mat &frame) const;
 
     void Clone(const ImageController &other);

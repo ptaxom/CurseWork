@@ -5,7 +5,6 @@ ApplicationProcessor::ApplicationProcessor()
     this->cSourse = CameraSource(0);
     cSourse.isOpened();
     this->writer = MediaWriter();
-    this->controller = ImageController();
 }
 
 
@@ -31,9 +30,9 @@ QPixmap ApplicationProcessor::getNextFrame(int width, int height)
         framesCount = 0;
         frameCaptureTime = 0;
     }
-
     double start, end;
     start = (double)cv::getTickCount();
+
     cv::Mat image = cSourse.grabCVIMage();
     cv::Mat frame;
     cv::flip(image, frame,1);

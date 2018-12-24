@@ -83,8 +83,7 @@ void MainWindow::on_actPhoto_triggered()
 
 void MainWindow::on_actWriterSettings_triggered()
 {
-    writerSettings window;
-    window.initSettings(&processor.getWriter());
+    writerSettings window(&processor.getWriter());
     window.exec();
 }
 
@@ -93,4 +92,11 @@ void MainWindow::on_actFilterSettings_triggered()
 {
     ImageControllerSettings window(&processor.getController(), QString("Настройка фильтров"));
     window.exec();
+}
+
+#include <QMessageBox>
+
+void MainWindow::on_action_8_triggered()
+{
+    QMessageBox::about(this, "Информация", "Прогамма WebCam предназначенная для обработки видеопотока в режиме реального времени.");
 }

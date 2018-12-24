@@ -16,11 +16,18 @@ ColorFilterEditor::~ColorFilterEditor()
     delete ui;
 }
 
+#include <QDebug>
+
 void ColorFilterEditor::resetFields()
 {
     if (filter == nullptr)
     {
         ui->lblTitle->setText("Добавление нового фильтра");
+
+        ui->hslR->setValue(10);
+        ui->hslG->setValue(10);
+        ui->hslB->setValue(10);
+
         ui->lblRV->setText(getFormattedDescription("красного","r", getDecodedValue(10)));
         ui->lblGV->setText(getFormattedDescription("зеленого","g", getDecodedValue(10)));
         ui->lblBV->setText(getFormattedDescription("синего","b", getDecodedValue(10)));
@@ -134,8 +141,8 @@ double ColorFilterEditor::getDecodedValue(int val) const
 
 int ColorFilterEditor::getEncodedValue(double val) const
 {
-    if (abs(val) < 10)
-        return (int)val * 10.0;
+    if (abs(val) < 1.0)
+        return (int)(val * 10.0);
     else return (int)(val < 0 ? val - 9.0 : val + 9.0);
 }
 

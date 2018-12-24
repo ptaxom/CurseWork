@@ -54,7 +54,7 @@ private:
     bool usePreferredFPS = false;
     int preferredFPS = 30;
 
-    double lastCapture;
+    double lastCaptureTime;
     double spf; // seconds per frame
 
 };

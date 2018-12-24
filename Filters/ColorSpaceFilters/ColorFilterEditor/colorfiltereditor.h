@@ -47,7 +47,7 @@ private:
     double getDecodedValue(int val) const;
     int getEncodedValue(double val) const;
 
-    QString ColorFilterEditor::getFormattedDescription(QString color,QString var, double val) const;
+    QString getFormattedDescription(QString color,QString var, double val) const;
 
 protected:
     void resetFields() override;

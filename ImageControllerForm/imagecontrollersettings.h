@@ -21,9 +21,6 @@ public:
     explicit ImageControllerSettings(ImageController *ctrl,QString wndTitle, QWidget *parent = nullptr);
     ~ImageControllerSettings();
 
-    void fillListView();
-
-    std::vector<QString> getDeclaratedNames() const;
 
 private slots:
     void on_btnAdd_clicked();
@@ -41,6 +38,10 @@ private:
 
     template<class T>
     AbstractFilter *genericFilterFactory(AbstractFilter *filter = nullptr);
+
+    void fillListView();
+
+    std::vector<QString> getDeclaratedNames() const;
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;

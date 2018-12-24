@@ -7,9 +7,8 @@
 class CameraSource
 {
 public:
-    CameraSource();
+    CameraSource(int id = 0);
 
-    CameraSource(int id);
     ~CameraSource();
 
     bool isOpened() const;
@@ -23,8 +22,7 @@ public:
 
 private:
     int id;
-
-    cv::VideoCapture vCap;
+    cv::VideoCapture videoCapture;
     cv::Mat lastFrame;
 
 };

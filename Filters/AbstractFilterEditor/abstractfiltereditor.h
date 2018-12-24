@@ -21,8 +21,6 @@ protected:
 
     bool isClose;
 
-    bool isDeclaratedName(const QString &name) const;
-
     void checkNameCorrectness(const QString &name) const;
 
     QString getMatrixLabel(int size) const;
@@ -43,6 +41,8 @@ protected:
         return nullptr;
     }
 
+private:
+    bool isDeclaratedName(const QString &name) const;
 
 };
 

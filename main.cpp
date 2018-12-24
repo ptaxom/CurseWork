@@ -1,10 +1,8 @@
 #include "mainwindow.h"
 #include <QApplication>
 
-//TODO
-//    Фильтр обведенка
+#include "opencv2/videoio.hpp"
 
-//Иконки и фикс багов
 
 int main(int argc, char *argv[])
 {

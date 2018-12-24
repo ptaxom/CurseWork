@@ -3,13 +3,14 @@
 #include <QFileDialog>
 
 
-writerSettings::writerSettings(QWidget *parent) :
+writerSettings::writerSettings(MediaWriter *settings_, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::writerSettings)
 {
-    this->settings = nullptr;
+    this->settings = settings_;
     this->path = "";
     ui->setupUi(this);
+    initSettings();
 }
 
 writerSettings::~writerSettings()
@@ -17,11 +18,11 @@ writerSettings::~writerSettings()
     delete ui;
 }
 
-void writerSettings::initSettings(MediaWriter *settings_)
+void writerSettings::initSettings()
 {
-    if (settings_ == nullptr)
+    if (settings == nullptr)
         throw std::runtime_error("exception from mediawriter settings");
-    this->settings = settings_;
+    this->settings = settings;
     ui->spbPrefferedFPS->setRange(10, 45);
     ui->spbPrefferedFPS->setValue(settings->getPreferredFPS());
     ui->cbUsePreferredFPS->setChecked(settings->getUsePreferredFPS());
@@ -47,5 +48,4 @@ void writerSettings::on_btnChangePath_clicked()
 {
     QString path = QFileDialog::getExistingDirectory(this,"Выберите директорию", QString::fromStdString(settings->getPath()));
     this->path = path.toLocal8Bit().data();
-    std::cout << this->path;
 }

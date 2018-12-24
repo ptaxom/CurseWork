@@ -5,7 +5,7 @@ MediaWriter::MediaWriter(std::string path)
 {
     this->path = path;
     this->writer = nullptr;
-    this->lastCapture = (double)cv::getTickCount();
+    this->lastCaptureTime = (double)cv::getTickCount();
     this->spf = 1.0 / (double)this->preferredFPS;
 }
 
@@ -24,7 +24,7 @@ void MediaWriter::startCapture(int fps, const cv::Size &size)
     if (usePreferredFPS)
         fps = this->preferredFPS;
     this->spf = 1 / (double)fps;
-    this->lastCapture = (double)cv::getTickCount();
+    this->lastCaptureTime = (double)cv::getTickCount();
     this->writer = new cv::VideoWriter(p, CV_FOURCC('M','J','P','G'), fps-5, size, true);
 }
 
@@ -35,10 +35,10 @@ void MediaWriter::addFrame(const cv::Mat &frame)
     if (this->writer == nullptr)
         throw std::runtime_error("You must start recording!");
     double t2 = (double)cv::getTickCount();
-    double timeFromLastFrame = (t2 - this->lastCapture) / cv::getTickFrequency();
+    double timeFromLastFrame = (t2 - this->lastCaptureTime) / cv::getTickFrequency();
     if (timeFromLastFrame >= this->spf)
     {
-        this->lastCapture = t2;
+        this->lastCaptureTime = t2;
         cv::Mat frameToWrite;
         cv::cvtColor(frame, frameToWrite, CV_BGR2RGB);
         for(int i = 0; i < frameToWrite.rows; i++)
@@ -109,6 +109,7 @@ std::string MediaWriter::getPath() const
 void MediaWriter::setPreferredFPS(int fps)
 {
     this->preferredFPS = fps;
+    this->spf = 1.0 / (double)fps;
 }
 
 void MediaWriter::setUsePreferredFPS(bool use)

@@ -14,10 +14,10 @@ class writerSettings : public QDialog
     Q_OBJECT
 
 public:
-    explicit writerSettings(QWidget *parent = nullptr);
+    explicit writerSettings(MediaWriter *settings_, QWidget *parent = nullptr);
     ~writerSettings();
 
-    void initSettings(MediaWriter *settings_);
+
 
 private slots:
     void on_btnConfirm_clicked();
@@ -31,7 +31,7 @@ private:
     MediaWriter *settings;
 
     std::string path;
-
+    void initSettings();
 };
 
 #endif // WRITERSETTINGS_H

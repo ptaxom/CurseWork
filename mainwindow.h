@@ -33,6 +33,8 @@ private slots:
 
     void on_actFilterSettings_triggered();
 
+    void on_action_8_triggered();
+
 private:
 
     Ui::MainWindow *ui;
